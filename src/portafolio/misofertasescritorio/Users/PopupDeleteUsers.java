@@ -51,6 +51,11 @@ public final class PopupDeleteUsers extends javax.swing.JFrame {
         btnNo.setForeground(new java.awt.Color(255, 51, 0));
         btnNo.setText("No");
         btnNo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 51, 0), 2, true));
+        btnNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 11)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -117,9 +122,13 @@ public final class PopupDeleteUsers extends javax.swing.JFrame {
 
     private void btnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiActionPerformed
         int idUsuario = MaintainerUsers.varSessionUser;
-        
         service.EliminarUsuario(idUsuario);
+        dispose();
     }//GEN-LAST:event_btnSiActionPerformed
+
+    private void btnNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnNoActionPerformed
 
     /**
      * @param args the command line arguments

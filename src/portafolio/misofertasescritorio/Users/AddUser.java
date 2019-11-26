@@ -7,11 +7,17 @@ package portafolio.misofertasescritorio.Users;
 
 import Helpers.UsuarioHelper;
 import Models.Empresas;
+import Models.Regiones;
+import Services.ServiceAdditional;
 import Services.ServiceEmpresa;
 import Services.ServiceUsuario;
+import Services.Validations;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +31,7 @@ public final class AddUser extends javax.swing.JFrame {
     public AddUser() {
         initComponents();
         CargarComplementos();
+        CargarComponentes();
     }
 
     /**
@@ -44,7 +51,6 @@ public final class AddUser extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txtPassword = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        txtComuna = new javax.swing.JTextField();
         txtTipoUsuario = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         lblIconoGuardar = new javax.swing.JLabel();
@@ -54,9 +60,8 @@ public final class AddUser extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        cbcTipoUsuario = new javax.swing.JComboBox<>();
+        cbcRegion = new javax.swing.JComboBox<>();
         txtRut = new javax.swing.JTextField();
-        cbcEmpresas = new javax.swing.JComboBox<>();
         rbNo = new javax.swing.JRadioButton();
         rbSi = new javax.swing.JRadioButton();
         lblOferta = new javax.swing.JLabel();
@@ -65,6 +70,9 @@ public final class AddUser extends javax.swing.JFrame {
         txtApellidos = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtPuntos = new javax.swing.JTextField();
+        cbcEmpresas = new javax.swing.JComboBox<>();
+        cbcTipoUsuario2 = new javax.swing.JComboBox<>();
+        cbcComuna = new javax.swing.JComboBox<>();
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -97,17 +105,12 @@ public final class AddUser extends javax.swing.JFrame {
         txtPassword.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(102, 102, 102));
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 380, -1));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 380, -1));
 
         txtCorreo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(102, 102, 102));
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 380, -1));
-
-        txtComuna.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtComuna.setForeground(new java.awt.Color(102, 102, 102));
-        txtComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 380, -1));
 
         txtTipoUsuario.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtTipoUsuario.setForeground(new java.awt.Color(102, 102, 102));
@@ -124,10 +127,10 @@ public final class AddUser extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 640, 250, 50));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 700, 280, 50));
 
         lblIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoGuardar.png"))); // NOI18N
-        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 640, 60, 50));
+        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 700, 60, 50));
         jPanel1.add(jCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 360, -1));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
@@ -150,37 +153,36 @@ public final class AddUser extends javax.swing.JFrame {
         jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 1, true));
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 760, 890, 100));
 
-        cbcTipoUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-        cbcTipoUsuario.setForeground(new java.awt.Color(120, 120, 120));
-        cbcTipoUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
-        cbcTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 400, 380, 50));
+        cbcRegion.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcRegion.setForeground(new java.awt.Color(120, 120, 120));
+        cbcRegion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Region", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 380, 50));
+        cbcRegion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0){
+                RellenarComuna((String)cbcRegion.getSelectedItem());
+            }
+        });
 
         txtRut.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtRut.setForeground(new java.awt.Color(102, 102, 102));
         txtRut.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Rut", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 380, -1));
 
-        cbcEmpresas.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-        cbcEmpresas.setForeground(new java.awt.Color(120, 120, 120));
-        cbcEmpresas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 380, 50));
-
         bgOfertas.add(rbNo);
         rbNo.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbNo.setForeground(new java.awt.Color(102, 102, 102));
         rbNo.setText("No");
-        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 570, -1, 30));
+        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 630, -1, 30));
 
         bgOfertas.add(rbSi);
         rbSi.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbSi.setForeground(new java.awt.Color(102, 102, 102));
         rbSi.setSelected(true);
         rbSi.setText("Si");
-        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 570, 40, 30));
+        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 630, 40, 30));
 
         lblOferta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "¿Suscribir a nuevas ofertas?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 540, 240, 70));
+        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 600, 240, 70));
 
         lblFechaNacimiento.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Fecha Nacimiento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 380, 270));
@@ -203,7 +205,23 @@ public final class AddUser extends javax.swing.JFrame {
         txtPuntos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPuntos.setForeground(new java.awt.Color(102, 102, 102));
         txtPuntos.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Puntos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 470, 380, -1));
+        jPanel1.add(txtPuntos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 530, 380, -1));
+
+        cbcEmpresas.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcEmpresas.setForeground(new java.awt.Color(120, 120, 120));
+        cbcEmpresas.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 380, 50));
+
+        cbcTipoUsuario2.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcTipoUsuario2.setForeground(new java.awt.Color(120, 120, 120));
+        cbcTipoUsuario2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
+        cbcTipoUsuario2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcTipoUsuario2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 460, 380, 50));
+
+        cbcComuna.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcComuna.setForeground(new java.awt.Color(120, 120, 120));
+        cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 380, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -230,26 +248,87 @@ public final class AddUser extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         ServiceUsuario service = new ServiceUsuario();
         
-        String nombre = txtNombres.getText();
-        String rut = txtRut.getText();
-        String apellido = txtApellidos.getText();
-        String correo = txtCorreo.getText();
-        String password = txtPassword.getText();
-        Long telefono = Long.parseLong(txtTelefono.getText());
-        String comuna = txtComuna.getText();
+        String nombre = txtNombres.getText();//
+        String rut = txtRut.getText();//
+        String apellido = txtApellidos.getText();//
+        String correo = txtCorreo.getText();//
+        String password = txtPassword.getText();//
+        String telefono0 = txtTelefono.getText();//
+        String comuna = (String)cbcComuna.getSelectedItem();
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         String fechaNacimiento = f.format(jCalendar.getDate());
         Boolean suscrito = rbSi.isSelected();
-        Long puntos = Long.parseLong(txtPuntos.getText());
+        String puntos0 = txtPuntos.getText();//
         Empresas empresa = (Empresas)cbcEmpresas.getSelectedItem();
         Long idEmpresa = empresa.getIDEmpresa();
         Long idTipoUsuario = Long.parseLong(txtTipoUsuario.getText());
         
+        //Formateo de entradas
+        Long telefono1 = null;
+        Long puntos1 = null;
+        
+        //Fin de formateo de entradas
+        
+        //Validaciones
+        ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (!Validations.validarNoVacio(nombre)) {
+            listaErrores.add("El nombre  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(rut)) {
+            listaErrores.add("El RUT  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(apellido)) {
+            listaErrores.add("El Apellido  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(correo)) {
+            listaErrores.add("El Correo  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(password)) {
+            listaErrores.add("El Password  no puede estar en blanco");
+        }
+        
+        
+        if (!Validations.validarNoVacio(telefono0)) {
+            listaErrores.add("El Telefono no puede estar en blanco");
+        }
+        telefono1 = Validations.validarNumeroLong(telefono0);
+        if (telefono1 == Long.parseLong("0")) {
+            listaErrores.add("El Telefono no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(puntos0)) {
+            listaErrores.add("Los puntos no pueden estar en blanco");
+        }
+        puntos1 = Validations.validarNumeroLong(puntos0);
+        if (puntos1 == Long.parseLong("0")) {
+            listaErrores.add("Los puntos no pueden contener letras");
+        }
+        //Fin validaciones
+        
         System.out.println(fechaNacimiento);
         
-        UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono, comuna, fechaNacimiento, true, puntos, idTipoUsuario, idEmpresa);
+        //Agregar Usuario
+        if (listaErrores.isEmpty()) {
+            UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono1, comuna, fechaNacimiento, suscrito, puntos1, idTipoUsuario, idEmpresa);
+            service.AgregarUsuario(usuario);
+            dispose();
+        }else{
+            String errores = "";
+            for (int i = 0; i < listaErrores.size(); i++) {
+                errores += listaErrores.get(i)+"\n";
+            }
+            JOptionPane.showMessageDialog(null, errores);
+        }
+        //Fin agregar usuario
         
-        service.AgregarUsuario(usuario);
+        
+        
+        
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -302,12 +381,41 @@ public final class AddUser extends javax.swing.JFrame {
             cbcEmpresas.addItem(listaEmpresas.get(i));
         }
     }
+    
+    //Comienzo de Carga de JComboBox dinamico y dependiente
+    ServiceAdditional serviceAdditional = new ServiceAdditional();
+    
+    public void CargarComponentes(){
+        
+        ArrayList <Regiones> regiones;
+        regiones = serviceAdditional.ListarRegiones();
+        
+        for (Regiones regione : regiones) {
+            cbcRegion.addItem(regione.getRegion());
+        }
+    }
+    
+    public void RellenarComuna(String selectItemCbc){
+        cbcComuna.removeAllItems();
+        ArrayList <Regiones> regiones;
+        regiones = serviceAdditional.ListarRegiones();
+        
+        for (int i = 0; i < regiones.size(); i++) {
+            if (regiones.get(i).getRegion().equals(selectItemCbc)) {
+                cbcComuna.setModel(new javax.swing.DefaultComboBoxModel<>(regiones.get(i).getComunas()));
+                break;
+            }
+        }
+    }
+    //Fin de la carga dinamica
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOfertas;
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JComboBox<String> cbcComuna;
     private javax.swing.JComboBox<Empresas> cbcEmpresas;
-    private javax.swing.JComboBox<String> cbcTipoUsuario;
+    private javax.swing.JComboBox<String> cbcRegion;
+    private javax.swing.JComboBox<String> cbcTipoUsuario2;
     private com.toedter.calendar.JCalendar jCalendar;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel2;
@@ -325,7 +433,6 @@ public final class AddUser extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbNo;
     private javax.swing.JRadioButton rbSi;
     private javax.swing.JTextField txtApellidos;
-    private javax.swing.JTextField txtComuna;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtPassword;

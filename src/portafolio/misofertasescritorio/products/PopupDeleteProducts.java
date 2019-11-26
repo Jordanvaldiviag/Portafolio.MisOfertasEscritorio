@@ -128,8 +128,8 @@ public final class PopupDeleteProducts extends javax.swing.JFrame {
 
     private void btnSiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiActionPerformed
         int idProducto = MaintainerProducts.varSessionProducto;
-        
         servicio.EliminarProducto(idProducto);
+        dispose();
     }//GEN-LAST:event_btnSiActionPerformed
 
     /**

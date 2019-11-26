@@ -7,10 +7,14 @@ package portafolio.misofertasescritorio.Users;
 
 import Helpers.UsuarioHelper;
 import Models.Empresas;
+import Models.Regiones;
 import Models.TipoUsuario;
 import Models.Usuario;
+import Services.ServiceAdditional;
 import Services.ServiceEmpresa;
 import Services.ServiceUsuario;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +34,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
         initComponents();
         CargarComplementos();
         CargarUsuario();
+        CargarComponentes();
     }
 
     /**
@@ -47,7 +52,6 @@ public final class UpdateUsers extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         txtComuna = new javax.swing.JTextField();
-        txtCorreo = new javax.swing.JTextField();
         txtApellidos = new javax.swing.JTextField();
         txtPuntosObtenidos = new javax.swing.JTextField();
         btnActualizar = new javax.swing.JButton();
@@ -68,6 +72,9 @@ public final class UpdateUsers extends javax.swing.JFrame {
         txtTipoUsuario = new javax.swing.JTextField();
         txtRut = new javax.swing.JTextField();
         txtPassword = new javax.swing.JTextField();
+        cbcRegion = new javax.swing.JComboBox<>();
+        cbcComuna = new javax.swing.JComboBox<>();
+        txtCorreo1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Empresa");
@@ -93,12 +100,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
         txtComuna.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtComuna.setForeground(new java.awt.Color(102, 102, 102));
         txtComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 380, -1));
-
-        txtCorreo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtCorreo.setForeground(new java.awt.Color(102, 102, 102));
-        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 380, -1));
+        jPanel1.add(txtComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 310, 380, -1));
 
         txtApellidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtApellidos.setForeground(new java.awt.Color(102, 102, 102));
@@ -108,7 +110,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
         txtPuntosObtenidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPuntosObtenidos.setForeground(new java.awt.Color(102, 102, 102));
         txtPuntosObtenidos.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Puntos Obtenidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPuntosObtenidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 520, 370, -1));
+        jPanel1.add(txtPuntosObtenidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 610, 370, -1));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -120,10 +122,10 @@ public final class UpdateUsers extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 640, 250, 50));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 710, 250, 50));
 
         lblIconoActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarVerde.png"))); // NOI18N
-        jPanel1.add(lblIconoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 640, 60, 50));
+        jPanel1.add(lblIconoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 710, 60, 50));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel5.setText("Direccion: No debe superar los 500 caracteres.");
@@ -148,7 +150,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
         cbcTipoUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcTipoUsuario.setForeground(new java.awt.Color(120, 120, 120));
         cbcTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 380, 50));
+        jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 460, 380, 50));
 
         txtNombres.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtNombres.setForeground(new java.awt.Color(102, 102, 102));
@@ -158,23 +160,23 @@ public final class UpdateUsers extends javax.swing.JFrame {
         cbcEmpresas.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcEmpresas.setForeground(new java.awt.Color(120, 120, 120));
         cbcEmpresas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 260, 380, 50));
+        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 380, 380, 50));
 
         bgOfertas.add(rbNo);
         rbNo.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbNo.setForeground(new java.awt.Color(102, 102, 102));
         rbNo.setText("No");
-        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 450, -1, 30));
+        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 550, -1, 30));
 
         bgOfertas.add(rbSi);
         rbSi.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbSi.setForeground(new java.awt.Color(102, 102, 102));
         rbSi.setSelected(true);
         rbSi.setText("Si");
-        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 450, 40, 30));
+        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 550, 40, 30));
 
         lblOferta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "¿Suscribir a nuevas ofertas?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 420, 240, 70));
+        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 240, 70));
 
         txtFechaNacimiento.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtFechaNacimiento.setForeground(new java.awt.Color(102, 102, 102));
@@ -194,12 +196,32 @@ public final class UpdateUsers extends javax.swing.JFrame {
         txtRut.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtRut.setForeground(new java.awt.Color(102, 102, 102));
         txtRut.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Rut", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 380, -1));
+        jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 380, -1));
 
         txtPassword.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(102, 102, 102));
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 380, -1));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 380, -1));
+
+        cbcRegion.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcRegion.setForeground(new java.awt.Color(120, 120, 120));
+        cbcRegion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Region", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 380, 50));
+        cbcRegion.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0){
+                RellenarComuna((String)cbcRegion.getSelectedItem());
+            }
+        });
+
+        cbcComuna.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcComuna.setForeground(new java.awt.Color(120, 120, 120));
+        cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 250, 380, 50));
+
+        txtCorreo1.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        txtCorreo1.setForeground(new java.awt.Color(102, 102, 102));
+        txtCorreo1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtCorreo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 380, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -222,7 +244,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
         String nombre = txtNombres.getText();
         String rut = txtRut.getText();
         String apellido = txtApellidos.getText();
-        String correo = txtCorreo.getText();
+        String correo = txtComuna.getText();
         String password = txtRut.getText();
         Long telefono = Long.parseLong(txtTelefono.getText());
         String comuna = txtComuna.getText();
@@ -290,7 +312,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
                 txtRut.setText(listaUsuario.get(i).getRut());
                 txtPassword.setText(listaUsuario.get(i).getPassword());
                 txtApellidos.setText(listaUsuario.get(i).getApellido());
-                txtCorreo.setText(listaUsuario.get(i).getCorreo());
+                txtComuna.setText(listaUsuario.get(i).getCorreo());
                 txtTelefono.setText(Long.toString(listaUsuario.get(i).getTelefono()));
                 txtFechaNacimiento.setText(listaUsuario.get(i).getFechaNacimiento());
                 txtComuna.setText(listaUsuario.get(i).getComuna());
@@ -313,11 +335,40 @@ public final class UpdateUsers extends javax.swing.JFrame {
             cbcEmpresas.addItem(listaEmpresas.get(i));
         }
     }
+    
+    //Comienzo de Carga de JComboBox dinamico y dependiente
+    ServiceAdditional serviceAdditional = new ServiceAdditional();
+    
+    public void CargarComponentes(){
+        
+        ArrayList <Regiones> regiones;
+        regiones = serviceAdditional.ListarRegiones();
+        
+        for (Regiones regione : regiones) {
+            cbcRegion.addItem(regione.getRegion());
+        }
+    }
+    
+    public void RellenarComuna(String selectItemCbc){
+        cbcComuna.removeAllItems();
+        ArrayList <Regiones> regiones;
+        regiones = serviceAdditional.ListarRegiones();
+        
+        for (int i = 0; i < regiones.size(); i++) {
+            if (regiones.get(i).getRegion().equals(selectItemCbc)) {
+                cbcComuna.setModel(new javax.swing.DefaultComboBoxModel<>(regiones.get(i).getComunas()));
+                break;
+            }
+        }
+    }
+    //Fin de la carga dinamica
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOfertas;
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JComboBox<String> cbcComuna;
     private javax.swing.JComboBox<Empresas> cbcEmpresas;
+    private javax.swing.JComboBox<String> cbcRegion;
     private javax.swing.JComboBox<TipoUsuario> cbcTipoUsuario;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -334,7 +385,7 @@ public final class UpdateUsers extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbSi;
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtComuna;
-    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtCorreo1;
     private javax.swing.JTextField txtFechaNacimiento;
     private javax.swing.JTextField txtNombres;
     private javax.swing.JTextField txtPassword;

@@ -254,6 +254,12 @@ public final class RegisterProducts extends javax.swing.JFrame {
         Empresas empresa = (Empresas)cbcEmpresa.getSelectedItem();
         long idEmpresa = empresa.getIDEmpresa();
         
+        //Formateo de entradas
+        Long precioNormal1 = null;
+        Long stock1 = null;
+        
+        //Fin de formateo de entradas
+        
         //Validaciones
         ArrayList<String> listaErrores = new ArrayList<>();
         
@@ -261,10 +267,13 @@ public final class RegisterProducts extends javax.swing.JFrame {
             listaErrores.add("El nombre del producto no puede estar en blanco");
         }
         
-        if (Validations.validarNumero(precioNormal0) == null) {
-            listaErrores.add("El Telefono no puede estar en blanco o contener letras");
+        if (!Validations.validarNoVacio(precioNormal0)) {
+            listaErrores.add("El Precio del producto no puede estar en blanco");
         }
-        Long precioNormal1 = Long.parseLong(precioNormal0);
+        precioNormal1 = Validations.validarNumeroLong(precioNormal0);
+        if (precioNormal1 == Long.parseLong("0")) {
+            listaErrores.add("El Precio del producto no puede contener letras");
+        }
         
         if (!Validations.validarNoVacio(descripcion)) {
             listaErrores.add("La descripcion del producto no puede estar en blanco");
@@ -278,10 +287,13 @@ public final class RegisterProducts extends javax.swing.JFrame {
             listaErrores.add("El modelo del producto no puede estar en blanco");
         }
         
-        if (Validations.validarNumero(stock0) == null) {
-            listaErrores.add("El stock del producto no puede estar en blanco o contener letras");
+        if (!Validations.validarNoVacio(stock0)) {
+            listaErrores.add("El stock del producto no puede estar en blanco");
         }
-        Long stock1 = Long.parseLong(stock0);
+        stock1 = Validations.validarNumeroLong(stock0);
+        if (stock1 == Long.parseLong("0")) {
+            listaErrores.add("El stock no puede contener letras");
+        }
         
         if (!Validations.validarNoVacio(temporada)) {
             listaErrores.add("La temporada del producto no puede estar en blanco");

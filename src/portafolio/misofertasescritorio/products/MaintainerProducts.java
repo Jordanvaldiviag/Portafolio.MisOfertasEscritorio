@@ -61,6 +61,11 @@ public final class MaintainerProducts extends javax.swing.JFrame {
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarLista.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, 90, 20));
 
         lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
@@ -153,6 +158,12 @@ public final class MaintainerProducts extends javax.swing.JFrame {
             popupDeleteProducts.setVisible(true);
         }
     }//GEN-LAST:event_jTableProductosMouseClicked
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTableProductos.getModel();
+        modelo.setRowCount(0);
+        CargarLista();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments

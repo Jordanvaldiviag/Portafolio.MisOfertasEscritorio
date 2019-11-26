@@ -19,7 +19,7 @@ import portafolio.misofertasescritorio.IconCellRenderer;
  */
 public class MaintainerBusiness extends javax.swing.JFrame {
     
-    //VariableLocal
+    //Variable Local estatica de session
     public static int varSessionEmpresa;
     
     /**

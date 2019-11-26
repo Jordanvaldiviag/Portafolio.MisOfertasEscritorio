@@ -11,7 +11,9 @@ import Models.Empresas;
 import Models.ProductoElement;
 import Services.ServiceEmpresa;
 import Services.ServiceProducto;
+import Services.Validations;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -239,11 +241,11 @@ public final class UpdateProducts extends javax.swing.JFrame {
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         
         String nombre = txtNombreProducto.getText();
-        long precioNormal = Long.parseLong(txtPrecioProducto.getText());
+        String precioNormal0 = txtPrecioProducto.getText();
         String descripcion = txtDescripcion.getText();
         String marca = txtMarca.getText();
         String modelo = txtModelo.getText();
-        long stock = Long.parseLong(txtStockProducto.getText());
+        String stock0 = txtStockProducto.getText();
         String imagen = txtImagen.getText();
         String fechaVencimiento = txtFechaVencimiento.getText();
         String temporada = txtTemporada.getText();
@@ -252,12 +254,69 @@ public final class UpdateProducts extends javax.swing.JFrame {
         Empresas empresa = (Empresas)cbcEmpresa.getSelectedItem();
         long idEmpresa = empresa.getIDEmpresa();
         
+        //Formateo de entradas
+        Long precioNormal1 = null;
+        Long stock1 = null;
+        
+        //Fin de formateo de entradas
+        
+        //Validaciones
+        ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (!Validations.validarNoVacio(nombre)) {
+            listaErrores.add("El nombre del producto no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(precioNormal0)) {
+            listaErrores.add("El precio del producto no puede estar en blanco");
+        }
+        precioNormal1 = Validations.validarNumeroLong(precioNormal0);
+        if (precioNormal1 == Long.parseLong("0")) {
+            listaErrores.add("El precio del producto no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(descripcion)) {
+            listaErrores.add("La descripcion del producto no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(marca)) {
+            listaErrores.add("La marca del producto no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(modelo)) {
+            listaErrores.add("El modelo del producto no puede estar en blanco");
+        }
+        
+        
+        if (!Validations.validarNoVacio(stock0)) {
+            listaErrores.add("El stock del producto no puede estar en blanco");
+        }
+        stock1 = Validations.validarNumeroLong(stock0);
+        if (stock1 == Long.parseLong("0")) {
+            listaErrores.add("El stock no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(temporada)) {
+            listaErrores.add("La temporada del producto no puede estar en blanco");
+        }
+        //Fin validaciones
+        
+        //Agregar producto
+        if (listaErrores.isEmpty()) {
+            ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento, temporada, idEmpresa, idCategoria);
+            servicio.ActualizarProducto(producto);
+            dispose();
+        }else{
+            String errores = "";
+            for (int i = 0; i < listaErrores.size(); i++) {
+                errores += listaErrores.get(i)+"\n";
+            }
+            JOptionPane.showMessageDialog(null, errores);
+        }
+        //Fin de agregar producto
         
         
         
-        ProductoHelper producto = new ProductoHelper(nombre, precioNormal, descripcion, marca, modelo, stock, imagen, fechaVencimiento, temporada, idEmpresa, idCategoria);
-        
-        servicio.ActualizarProducto(producto);
         
     }//GEN-LAST:event_btnActualizarActionPerformed
 
