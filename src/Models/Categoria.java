@@ -15,6 +15,7 @@ public class Categoria {
      
     private long idCategoria;
     private String descripcion;
+    private String imagen;
 
     @JsonProperty("IdCategoria")
     public long getIDCategoria() { return idCategoria; }
@@ -25,6 +26,11 @@ public class Categoria {
     public String getDescripcion() { return descripcion; }
     @JsonProperty("Descripcion")
     public void setDescripcion(String value) { this.descripcion = value; }
+
+    @JsonProperty("Imagen")
+    public String getImagen() { return imagen; }
+    @JsonProperty("Imagen")
+    public void setImagen(String value) { this.imagen = value; }
 
     @Override
     public String toString() {

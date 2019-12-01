@@ -69,31 +69,22 @@ public class ServiceOferta {
     
     public String AgregarOferta(OfertaHelper oferta){
         GenericServices servicio = new GenericServices();
-        
         String result = servicio.Post(oferta,"http://ofertasportafoli-001-site1.dtempurl.com/api/oferta");
         System.out.println(result);
-        
         return result;
     }
     
     public String ActualizarOferta(OfertaHelper oferta){
         GenericServices servicio = new GenericServices();
-        
-        String varOferta = Long.toString(MaintainerOffers.varSessionOferta);
-        
-        String result = servicio.Update(oferta, "http://ofertasportafoli-001-site1.dtempurl.com/api/oferta/", varOferta);
-        
+        String varOferta = Integer.toString(MaintainerOffers.varSessionOferta);
+        String result = servicio.Update(oferta, "http://ofertasportafoli-001-site1.dtempurl.com/api/oferta/",varOferta);
         return result;
-        
     }
     
     public String EliminarOferta(int id){
         String idOferta = Integer.toString(id);
-        
         GenericServices servicio = new GenericServices();
-        
         String result = servicio.Delete(idOferta, "http://ofertasportafoli-001-site1.dtempurl.com/api/oferta/");
-        
         return result;
     }
     

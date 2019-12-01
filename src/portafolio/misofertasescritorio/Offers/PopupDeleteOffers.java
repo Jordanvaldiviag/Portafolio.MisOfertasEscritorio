@@ -128,6 +128,7 @@ public final class PopupDeleteOffers extends javax.swing.JFrame {
         int idOferta = MaintainerOffers.varSessionOferta;
         
         service.EliminarOferta(idOferta);
+        dispose();
     }//GEN-LAST:event_btnSiActionPerformed
 
     /**
@@ -181,15 +182,15 @@ public final class PopupDeleteOffers extends javax.swing.JFrame {
     }
     
     public void CargarComponentes(){
-        int varProducto = MaintainerProducts.varSessionProducto;
+        int varOferta = MaintainerOffers.varSessionOferta;
         
         ArrayList<Oferta> listaOferta;
          listaOferta = service.ListarOfertas();
         
         for (int i = 0; i < listaOferta.size(); i++) {
-            //if (varProducto == listaOferta.get(i).getIdOferta()) {
-            //    lblProducto.setText(listaOferta.get(i).getNombre()); 
-            //}Modificar esta expresion mediante los parametros de la clase OFERTA
+            if (varOferta == listaOferta.get(i).getIDOferta()) {
+                lblProducto.setText(listaOferta.get(i).getDescripcion()); 
+            }
         }
     }
 

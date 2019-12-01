@@ -6,7 +6,6 @@
 package portafolio.misofertasescritorio.Offers;
 
 import Models.Oferta;
-import Models.Producto;
 import Models.ProductoElement;
 import Services.ServiceOferta;
 import Services.ServiceProducto;
@@ -25,6 +24,7 @@ public final class MaintainerOffers extends javax.swing.JFrame {
     //variableLocal
     public static int varSessionOferta;
     public static ProductoElement varSessionProducto;
+    public static int varSessionUsuario;
     
     ServiceOferta service = new ServiceOferta();
     ServiceProducto serviceProducto = new ServiceProducto();
@@ -69,6 +69,11 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarLista.png"))); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 90, 20));
 
         lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
@@ -150,6 +155,9 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         if (columna == 8) {
             String idOferta = jTableOfertas.getValueAt(fila,10).toString();
             varSessionOferta = Integer.parseInt(idOferta);
+            
+            String idUsuario = jTableOfertas.getValueAt(fila, 7).toString();
+            varSessionUsuario = Integer.parseInt(idUsuario);
             System.out.println(varSessionOferta);
             
             UpdateOffers updateOffers = new UpdateOffers();
@@ -173,6 +181,12 @@ public final class MaintainerOffers extends javax.swing.JFrame {
             registerOffers.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             registerOffers.setVisible(true);
     }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        DefaultTableModel modelo = (DefaultTableModel) jTableOfertas.getModel();
+        modelo.setRowCount(0);
+        CargarLista();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,13 +231,14 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         
         //modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTableOfertas.getModel();
-        Object[] O = new Object[12];
+        Object[] O = new Object[11];
         
         //Renderizador de Iconos
         jTableOfertas.setDefaultRenderer(Object.class, new IconCellRenderer());
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/images/iconoActualizar.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/images/iconoEliminar.png"));
         
+        //Cargar datos por fila a fila
         for (int i = 0; i < listaOfertas.size(); i++) {
             //Icono Actualizar
             JLabel actualizar = new JLabel();

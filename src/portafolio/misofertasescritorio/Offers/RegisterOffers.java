@@ -5,7 +5,17 @@
  */
 package portafolio.misofertasescritorio.Offers;
 
+import Helpers.OfertaHelper;
+import Models.ProductoElement;
+import Models.Usuario;
+import Services.ServiceOferta;
 import Services.ServiceProducto;
+import Services.ServiceUsuario;
+import Services.Validations;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -16,6 +26,8 @@ import javax.swing.event.DocumentListener;
 public final class RegisterOffers extends javax.swing.JFrame {
     
     ServiceProducto servicio = new ServiceProducto();
+    ServiceOferta serviceOferta = new ServiceOferta();
+    ServiceUsuario servicioUsuario = new ServiceUsuario();
 
     /**
      * Creates new form MaintainerProducts
@@ -184,9 +196,8 @@ public final class RegisterOffers extends javax.swing.JFrame {
 
         cbcUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcUsuario.setForeground(new java.awt.Color(120, 120, 120));
-        cbcUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1" }));
-        cbcUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 300, 50));
+        cbcUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, 310, 60));
 
         btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -225,13 +236,85 @@ public final class RegisterOffers extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarProductoActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        
+        String compraMin0 = txtCompraMin.getText();
+        String compraMax0 = txtCompraMax.getText();
+        String descripcion = txtDescripcion.getText();
+        DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        String fechaCaducidad = f.format(jDateOferta.getDate());
+        String porcDescuento0 = txtPorcDescuento.getText();
+        String precio0 = txtPrecioOferta.getText();
+        Usuario usuario = (Usuario)cbcUsuario.getSelectedItem();
+        long idUsuario = usuario.getIDUsuario();
+        ProductoElement producto = ListProducts.varSessionProductoSelect;
+        long idProducto = producto.getIDProducto();
+        
+        
+        //Formateo de entradas
+        int compraMin1 = 0;
+        int compraMax1 = 0;
+        long porcDescuento1;
+        long precio1;
+        
+        //Validaciones
+        ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (!Validations.validarNoVacio(compraMin0)) {
+            listaErrores.add("La compra minima no puede estar en blanco");
+        }
+        compraMin1 = Validations.validarNumero(compraMin0);
+        if (compraMin1 == 0) {
+            listaErrores.add("La compra minima no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(compraMax0)) {
+            listaErrores.add("La compra maxima no puede estar en blanco");
+        }
+        compraMax1 = Validations.validarNumero(compraMax0);
+        if (compraMax1 == 0) {
+            listaErrores.add("La compra maxima no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(descripcion)) {
+            listaErrores.add("La descripcion no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(porcDescuento0)) {
+            listaErrores.add("El porcentaje de descuento no puede estar en blanco");
+        }
+        porcDescuento1 = Validations.validarNumeroLong(porcDescuento0);
+        if (porcDescuento1 == Long.parseLong("0")) {
+            listaErrores.add("El porcentaje de descuento no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(precio0)) {
+            listaErrores.add("El precio no puede estar en blanco");
+        }
+        precio1 = Validations.validarNumeroLong(precio0);
+        if (precio1 == Long.parseLong("0")) {
+            listaErrores.add("El precio no puede contener letras");
+        }
+        //Fin validaciones
+        
+        if (listaErrores.isEmpty()) {
+            OfertaHelper oferta = new OfertaHelper(descripcion, compraMin1, compraMax1, fechaCaducidad, precio1, porcDescuento1, idProducto, idUsuario);
+            serviceOferta.AgregarOferta(oferta);
+            dispose();
+        }else{
+            String errores = "";
+            for (int i = 0; i < listaErrores.size(); i++) {
+                errores += listaErrores.get(i)+"\n";
+            }
+            JOptionPane.showMessageDialog(null, errores);
+        }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
     
     
     
     public void CargarComponentes(){
         CamposVisibles();
+        CargarUsuario();
     }
     
     /**
@@ -293,12 +376,21 @@ public final class RegisterOffers extends javax.swing.JFrame {
             jDateOferta.setEnabled(true);
         }
     }
+    
+    public void CargarUsuario() {
+        ArrayList <Usuario> listaUsuarios;
+        listaUsuarios = servicioUsuario.ListarUsuarios();
+        
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            cbcUsuario.addItem(listaUsuarios.get(i));
+        }
+    }
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarProducto;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JComboBox<String> cbcUsuario;
+    private javax.swing.JComboBox<Usuario> cbcUsuario;
     private com.toedter.calendar.JDateChooser jDateOferta;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -321,4 +413,6 @@ public final class RegisterOffers extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioOferta;
     public static javax.swing.JTextField txtProducto;
     // End of variables declaration//GEN-END:variables
+
+    
 }

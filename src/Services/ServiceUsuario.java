@@ -67,7 +67,7 @@ public class ServiceUsuario {
     public ArrayList<TipoUsuario> ListaTipoUsuario(){
         String result;
         ArrayList<TipoUsuario> listaTipoUsuario = new ArrayList<>();
-        result = service.getRequest("http://ofertasportafoli-001-site1.dtempurl.com/", "/api", "/tipoUsuario");
+        result = service.getRequest("http://ofertasportafoli-001-site1.dtempurl.com/", "/api", "/tipousuario");
         ObjectMapper mapper = new ObjectMapper();
         TipoUsuario[] arregloTipoUsuario = null;
         try {

@@ -24,4 +24,11 @@ public class TipoUsuario {
     public String getDescripcion() { return descripcion; }
     @JsonProperty("Descripcion")
     public void setDescripcion(String value) { this.descripcion = value; }
+
+    @Override
+    public String toString() {
+        return descripcion;
+    }
+    
+    
 }

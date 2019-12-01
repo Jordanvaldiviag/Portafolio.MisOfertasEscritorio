@@ -90,4 +90,11 @@ public class Usuario {
     public long getPuntos() { return puntos; }
     @JsonProperty("Puntos")
     public void setPuntos(long value) { this.puntos = value; }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }

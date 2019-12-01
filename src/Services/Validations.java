@@ -25,7 +25,7 @@ public class Validations {
     }
     
     public static Integer validarNumero(String texto){
-        Integer resultado = null;                     
+        Integer resultado = 0;                     
         try{                                          
             resultado = Integer.parseInt(texto);
         } catch (NumberFormatException ex){
