@@ -24,6 +24,7 @@ public final class MaintainerOffers extends javax.swing.JFrame {
     
     //variableLocal
     public static int varSessionOferta;
+    public static ProductoElement varSessionProducto;
     
     ServiceOferta service = new ServiceOferta();
     ServiceProducto serviceProducto = new ServiceProducto();
@@ -45,12 +46,15 @@ public final class MaintainerOffers extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jYearChooser1 = new com.toedter.calendar.JYearChooser();
+        jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
         jPanel1 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableProductos = new javax.swing.JTable();
-        txtNombreProducto = new javax.swing.JTextField();
+        jTableOfertas = new javax.swing.JTable();
+        btnRegistrar = new javax.swing.JButton();
+        lblIcono = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
@@ -72,21 +76,21 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Datos de las Ofertas");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 390, 50));
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 390, 50));
 
-        jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableOfertas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombre Producto", "Categoria", "Porc. Descuento", "Precio", "Fecha Caducidad", "Compra Min", "Compra Max", "Descripcion", "Imagen", "Descuento", "Aplicar Descuento", "Eliminar", "id"
+                "Descripcion", "Compra Minima", "Compra Maxima", "Fecha Caducidad", "Valor", "Porcentaje Descuento", "Producto", "Usuario", "Actualizar", "Eliminar", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, true, true, true, false, false, true
+                false, false, false, false, false, false, false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -97,54 +101,78 @@ public final class MaintainerOffers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTableProductos.setRowHeight(35);
-        jTableProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableOfertas.setRowHeight(35);
+        jTableOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableProductosMouseClicked(evt);
+                jTableOfertasMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jTableProductos);
+        jScrollPane1.setViewportView(jTableOfertas);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 810, 280));
 
-        txtNombreProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtNombreProducto.setForeground(new java.awt.Color(102, 102, 102));
-        txtNombreProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Nombre del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 390, -1));
+        btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 127, 0));
+        btnRegistrar.setText("Registrar");
+        btnRegistrar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 127, 0), 2));
+        btnRegistrar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnRegistrar.setOpaque(false);
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 40));
+
+        lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IconoRegistrarUsuario.png"))); // NOI18N
+        jPanel1.add(lblIcono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 60, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTableProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableProductosMouseClicked
-        int fila = jTableProductos.rowAtPoint(evt.getPoint());
-        int columna = jTableProductos.columnAtPoint(evt.getPoint());
+    private void jTableOfertasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableOfertasMouseClicked
+        int fila = jTableOfertas.rowAtPoint(evt.getPoint());
+        int columna = jTableOfertas.columnAtPoint(evt.getPoint());
         
-        if (columna == 10){
-            String idOferta = jTableProductos.getValueAt(fila, 13).toString();
-            System.out.println(idOferta);
-            varSessionOferta = Integer.parseInt(idOferta);
+        if (columna == 6){
+            ProductoElement prod = (ProductoElement)jTableOfertas.getValueAt(fila, 6);
+            System.out.println(prod);
+            varSessionProducto = prod;
             
-            RegisterOffers registerOffers = new RegisterOffers();
-            registerOffers.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-            registerOffers.setVisible(true);
-             
+            InfoProducto infoProducto = new InfoProducto();
+            infoProducto.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            infoProducto.setVisible(true);
         }
         
-        if (columna == 11) {
-            String idProducto = jTableProductos.getValueAt(fila,13).toString();
-            varSessionOferta = Integer.parseInt(idProducto);
+        if (columna == 8) {
+            String idOferta = jTableOfertas.getValueAt(fila,10).toString();
+            varSessionOferta = Integer.parseInt(idOferta);
+            System.out.println(varSessionOferta);
+            
+            UpdateOffers updateOffers = new UpdateOffers();
+            updateOffers.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            updateOffers.setVisible(true);
+        }
+        
+        if (columna == 9) {
+            String idOferta = jTableOfertas.getValueAt(fila,10).toString();
+            varSessionOferta = Integer.parseInt(idOferta);
             System.out.println(varSessionOferta);
             
             PopupDeleteOffers popupDeleteOffers = new PopupDeleteOffers();
             popupDeleteOffers.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
             popupDeleteOffers.setVisible(true);
-            
         }
-        
-        
-    }//GEN-LAST:event_jTableProductosMouseClicked
+    }//GEN-LAST:event_jTableOfertasMouseClicked
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+            RegisterOffers registerOffers = new RegisterOffers();
+            registerOffers.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            registerOffers.setVisible(true);
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,20 +215,16 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         ArrayList<Oferta> listaOfertas;
         listaOfertas = service.ListarOfertas();
         
-        //recuperar lista producto
-        ArrayList<ProductoElement> listaProducto;
-        listaProducto = serviceProducto.ListarProductos();
-        
         //modelo de la tabla
-        DefaultTableModel modelo = (DefaultTableModel) jTableProductos.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) jTableOfertas.getModel();
         Object[] O = new Object[12];
         
         //Renderizador de Iconos
-        jTableProductos.setDefaultRenderer(Object.class, new IconCellRenderer());
+        jTableOfertas.setDefaultRenderer(Object.class, new IconCellRenderer());
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/images/iconoActualizar.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/images/iconoEliminar.png"));
         
-        for (int i = 0; i < listaProducto.size(); i++) {
+        for (int i = 0; i < listaOfertas.size(); i++) {
             //Icono Actualizar
             JLabel actualizar = new JLabel();
             actualizar.setIcon(icon1);
@@ -209,22 +233,37 @@ public final class MaintainerOffers extends javax.swing.JFrame {
             JLabel eliminar = new JLabel();
             eliminar.setIcon(icon2);
 
-            O[0] =  listaProducto.get(i).getNombre();
-            O[1] =  listaProducto.get(i).getIDCategoria();
-            //O[2] = listaProducto.get(i).ge
+            O[0] =  listaOfertas.get(i).getDescripcion();
+            O[1] =  listaOfertas.get(i).getCompraMin();
+            O[2] =  listaOfertas.get(i).getCompraMax();
+            O[3] =  listaOfertas.get(i).getFechaDisponibilidad();
+            O[4] =  listaOfertas.get(i).getValor();
+            O[5] =  listaOfertas.get(i).getPorcentajeDescuento();
+            O[6] =  listaOfertas.get(i).getProducto();
+            O[7] =  listaOfertas.get(i).getIDUsuario();
+            O[8] =  actualizar;
+            O[9] =  eliminar;
+            O[10] =  listaOfertas.get(i).getIDOferta();
             
             modelo.addRow(O);
             
         }
         
     }
-
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnRegistrar;
+    private com.toedter.components.JLocaleChooser jLocaleChooser1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTableProductos;
+    private javax.swing.JTable jTableOfertas;
+    private com.toedter.calendar.JYearChooser jYearChooser1;
+    private javax.swing.JLabel lblIcono;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
 }

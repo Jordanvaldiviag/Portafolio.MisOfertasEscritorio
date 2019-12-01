@@ -12,32 +12,15 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @author Acer
  */
 public class Oferta {
-    private Object[] opinionOfertas;
-    private Usuario usuario;
-    private Object[] valoraciones;
-    private long idOferta;
+   private long idOferta;
     private String descripcion;
     private long compraMin;
     private long compraMax;
     private String fechaDisponibilidad;
     private long valor;
     private long porcentajeDescuento;
-    private Producto producto;
-
-    @JsonProperty("OpinionOfertas")
-    public Object[] getOpinionOfertas() { return opinionOfertas; }
-    @JsonProperty("OpinionOfertas")
-    public void setOpinionOfertas(Object[] value) { this.opinionOfertas = value; }
-
-    @JsonProperty("Usuario")
-    public Usuario getUsuario() { return usuario; }
-    @JsonProperty("Usuario")
-    public void setUsuario(Usuario value) { this.usuario = value; }
-
-    @JsonProperty("Valoraciones")
-    public Object[] getValoraciones() { return valoraciones; }
-    @JsonProperty("Valoraciones")
-    public void setValoraciones(Object[] value) { this.valoraciones = value; }
+    private ProductoElement producto;
+    private long idUsuario;
 
     @JsonProperty("IdOferta")
     public long getIDOferta() { return idOferta; }
@@ -75,7 +58,12 @@ public class Oferta {
     public void setPorcentajeDescuento(long value) { this.porcentajeDescuento = value; }
 
     @JsonProperty("Producto")
-    public Producto getProducto() { return producto; }
+    public ProductoElement getProducto() { return producto; }
     @JsonProperty("Producto")
-    public void setProducto(Producto value) { this.producto = value; }
+    public void setProducto(ProductoElement value) { this.producto = value; }
+
+    @JsonProperty("IdUsuario")
+    public long getIDUsuario() { return idUsuario; }
+    @JsonProperty("IdUsuario")
+    public void setIDUsuario(long value) { this.idUsuario = value; }
 }

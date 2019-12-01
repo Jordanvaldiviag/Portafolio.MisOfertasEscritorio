@@ -103,7 +103,7 @@ public class MaintainerBusiness extends javax.swing.JFrame {
             jTableBusiness.getColumnModel().getColumn(9).setMaxWidth(0);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 810, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 810, 280));
 
         lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
         lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -129,7 +129,7 @@ public class MaintainerBusiness extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoRegistrarEmpresa.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 60, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 430));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 490));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

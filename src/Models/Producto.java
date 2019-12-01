@@ -78,4 +78,11 @@ public class Producto {
     public String getTemporada() { return temporada; }
     @JsonProperty("Temporada")
     public void setTemporada(String value) { this.temporada = value; }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
+    
 }

@@ -11,7 +11,9 @@ import org.codehaus.jackson.annotate.JsonProperty;
  *
  * @author Acer
  */
-public class ProductoElement {
+public class ProductoOferta {
+    private Categoria categoria;
+    private Empresas empresa;
     private long idProducto;
     private String nombre;
     private long precioNormal;
@@ -22,8 +24,16 @@ public class ProductoElement {
     private String imagen;
     private String fechaVencimiento;
     private String temporada;
-    private long idEmpresa;
-    private long idCategoria;
+
+    @JsonProperty("Categoria")
+    public Categoria getCategoria() { return categoria; }
+    @JsonProperty("Categoria")
+    public void setCategoria(Categoria value) { this.categoria = value; }
+
+    @JsonProperty("Empresa")
+    public Empresas getEmpresa() { return empresa; }
+    @JsonProperty("Empresa")
+    public void setEmpresa(Empresas value) { this.empresa = value; }
 
     @JsonProperty("IdProducto")
     public long getIDProducto() { return idProducto; }
@@ -74,22 +84,4 @@ public class ProductoElement {
     public String getTemporada() { return temporada; }
     @JsonProperty("Temporada")
     public void setTemporada(String value) { this.temporada = value; }
-
-    @JsonProperty("IdEmpresa")
-    public long getIDEmpresa() { return idEmpresa; }
-    @JsonProperty("IdEmpresa")
-    public void setIDEmpresa(long value) { this.idEmpresa = value; }
-
-    @JsonProperty("IdCategoria")
-    public long getIDCategoria() { return idCategoria; }
-    @JsonProperty("IdCategoria")
-    public void setIDCategoria(long value) { this.idCategoria = value; }
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
-    
-    
-    
 }
