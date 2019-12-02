@@ -51,6 +51,7 @@ public final class MaintainerUsers extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -67,21 +68,21 @@ public final class MaintainerUsers extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, 90, 20));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1060, 150, 90, 20));
 
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Nombres", "Apellidos", "Rut", "Correo", "Password", "Telefono", "Comuna", "Fecha Nacimiento", "Suscrito", "Puntos", "Actualizar", "Eliminar", "id"
+                "Nombres", "Apellidos", "Rut", "Correo", "Password", "Telefono", "Comuna", "Fecha Nacimiento", "Suscrito", "Puntos", "Tipo Usuario", "Empresa", "Actualizar", "Eliminar", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Boolean.class, java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Boolean.class, java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, true, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -100,12 +101,12 @@ public final class MaintainerUsers extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableUsuarios);
         if (jTableUsuarios.getColumnModel().getColumnCount() > 0) {
-            jTableUsuarios.getColumnModel().getColumn(12).setMinWidth(0);
-            jTableUsuarios.getColumnModel().getColumn(12).setPreferredWidth(0);
-            jTableUsuarios.getColumnModel().getColumn(12).setMaxWidth(0);
+            jTableUsuarios.getColumnModel().getColumn(14).setMinWidth(0);
+            jTableUsuarios.getColumnModel().getColumn(14).setPreferredWidth(0);
+            jTableUsuarios.getColumnModel().getColumn(14).setMaxWidth(0);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 810, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 1140, 210));
 
         lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
         lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -131,7 +132,7 @@ public final class MaintainerUsers extends javax.swing.JFrame {
         lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IconoRegistrarUsuario.png"))); // NOI18N
         jPanel1.add(lblIcono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 60, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 430));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 430));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -149,8 +150,8 @@ public final class MaintainerUsers extends javax.swing.JFrame {
         int fila = jTableUsuarios.rowAtPoint(evt.getPoint());
         int columna = jTableUsuarios.columnAtPoint(evt.getPoint());
         
-        if (columna == 10){
-            String idUsuario = jTableUsuarios.getValueAt(fila, 12).toString();
+        if (columna == 12){
+            String idUsuario = jTableUsuarios.getValueAt(fila, 14).toString();
             System.out.println(idUsuario);
             varSessionUser = Integer.parseInt(idUsuario);
             
@@ -159,8 +160,8 @@ public final class MaintainerUsers extends javax.swing.JFrame {
             updateUsers.setVisible(true);
         }
         
-        if (columna == 11) {
-            String idUsuario = jTableUsuarios.getValueAt(fila, 12).toString();
+        if (columna == 13) {
+            String idUsuario = jTableUsuarios.getValueAt(fila, 14).toString();
             varSessionUser = Integer.parseInt(idUsuario);
             System.out.println(varSessionUser);
             
@@ -217,7 +218,7 @@ public final class MaintainerUsers extends javax.swing.JFrame {
     
     //modelo de la tabla
     DefaultTableModel modelo = (DefaultTableModel) jTableUsuarios.getModel();
-    Object[] O = new Object[13];
+    Object[] O = new Object[15];
     
     //Renderizador de Iconos
     jTableUsuarios.setDefaultRenderer(Object.class, new IconCellRenderer());
@@ -243,9 +244,11 @@ public final class MaintainerUsers extends javax.swing.JFrame {
             O[7] =  listaUsuario.get(i).getFechaNacimiento();
             O[8] =  listaUsuario.get(i).getSuscrito();
             O[9] =  listaUsuario.get(i).getPuntos();
-            O[10] =  actualizar;
-            O[11] =  eliminar;
-            O[12] =  listaUsuario.get(i).getIDUsuario();
+            O[10] =  listaUsuario.get(i).getTipoUsuario();
+            O[11] =  listaUsuario.get(i).getEmpresa();
+            O[12] =  actualizar;
+            O[13] =  eliminar;
+            O[14] =  listaUsuario.get(i).getIDUsuario();
             
             modelo.addRow(O);
             

@@ -299,6 +299,7 @@ public final class UpdateBusiness extends javax.swing.JFrame {
                 cbcRegion.setSelectedItem(listaEmpresas.get(i).getRegion());
                 cbcComuna.setSelectedItem(listaEmpresas.get(i).getComuna());
                 txtDireccion.setText(listaEmpresas.get(i).getDireccion());
+                break;
             }
         }
         //Fin empresa

@@ -5,12 +5,13 @@
  */
 package portafolio.misofertasescritorio;
 
-import Models.UserSession;
-import Models.Usuario;
+import Helpers.UserLogin;
+import Services.ServiceLogin;
 import Services.ServiceUsuario;
-import Services.UserServices;
+import Services.Validations;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 /**
  *
@@ -39,9 +40,9 @@ public class Home extends javax.swing.JFrame {
         buttonEntrar = new javax.swing.JButton();
         textCorreo = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        textPassword = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ingresar al sistema");
@@ -69,12 +70,7 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(120, 120, 120));
         jLabel1.setText("Bienvenido");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 80, -1, -1));
-
-        textPassword.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
-        textPassword.setForeground(new java.awt.Color(122, 122, 122));
-        textPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(textPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 320, 50));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(255, 127, 0));
 
@@ -95,6 +91,10 @@ public class Home extends javax.swing.JFrame {
         jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 127, 0)));
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -20, 240, -1));
 
+        txtPassword.setForeground(new java.awt.Color(122, 122, 122));
+        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 320, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -113,57 +113,46 @@ public class Home extends javax.swing.JFrame {
 
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
             
-        
-        
-            ServiceUsuario service = new ServiceUsuario();
+            ServiceUsuario serviceUsuario = new ServiceUsuario();
             
-            ArrayList<Usuario> listaUsuario;
-            
-            listaUsuario = service.ListarUsuarios();
-            
-            String respuesta = "";
             String correo = textCorreo.getText();
-            String password = textPassword.getText();
+            char[] password0 = txtPassword.getPassword();
             
-            Boolean validarCorreo = false;
-            Boolean validarPassword = false;
-        
-        
-            for (int i = 0; i < listaUsuario.size(); i++) {
-                if (password.equals(listaUsuario.get(i).getPassword()) && correo.equals(listaUsuario.get(i).getCorreo()) ){
-                       validarCorreo = true;
-                       validarPassword = true;
+            //Variables de validacion
+            String password1 = Convertir(password0);
+            
+            //Validaciones
+            ArrayList<String> listaErrores = new ArrayList<>();
+            
+            if (!Validations.validarNoVacio(correo)) {
+                listaErrores.add("El correo  no puede estar en blanco");
+            }
+            
+            if (!Validations.validarNoVacio(password1)) {
+                listaErrores.add("La password  no puede estar en blanco");
+            }
+            //Fin validaciones
+            
+            if (listaErrores.isEmpty()) {
+                
+                ServiceLogin serviceLogin = new ServiceLogin();
+                UserLogin userLogin = new UserLogin(correo, password1);
+                String result = serviceLogin.Login(userLogin);
+                if (result.equals("400")) {
+                    JOptionPane.showMessageDialog(null, "Error en el Usuario o Password");
+                }else{
+                    dispose();
+                    AdminStart adminStart = new AdminStart();
+                    adminStart.setVisible(true);
                 }
                 
-            }
-            
-            if (validarCorreo==true&&validarPassword==true) {
-                AdminStart adminStart = new AdminStart();
-                adminStart.setVisible(true);
-                dispose();
             }else{
-                JOptionPane.showMessageDialog(null, "Error de usuario y password");
+                String errores = "";
+                for (int i = 0; i < listaErrores.size(); i++) {
+                    errores += listaErrores.get(i)+"\n";
+                }
+                JOptionPane.showMessageDialog(null, errores);
             }
-            
-            
-        
-/**        
-            int usertype = 1;
-            UserSession response = UserServices.PostUserLogin(textCorreo.getText(), textPassword.getText(), usertype);
-            
-            System.out.println(response);
-         
-            if (response.IsSuccess) {
-               
-                AdminStart adminStart = new AdminStart();
-                adminStart.setVisible(true);
-                setVisible(false);
-                
-            }else{
-                JOptionPane.showMessageDialog(null, response.Message);
-            }
-**/ 
-        
     }//GEN-LAST:event_buttonEntrarActionPerformed
 
     /**
@@ -176,12 +165,7 @@ public class Home extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel");
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -201,6 +185,15 @@ public class Home extends javax.swing.JFrame {
         });
     }
     
+    private String Convertir(char[] pass){
+        String contra = "";
+        
+        for (int i = 0; i < pass.length; i++) {
+            contra += pass[i];
+        }
+        return contra;
+    }
+    
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -210,6 +203,6 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField textCorreo;
-    private javax.swing.JTextField textPassword;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
 }

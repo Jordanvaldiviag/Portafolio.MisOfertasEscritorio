@@ -59,10 +59,6 @@ public class GenericServices {
                 reader.close();
             }
             
-            //ObjectMapper mapper = new ObjectMapper();
-            //[Clase] object = mapper.readValue(responseContent.toString(), [Clase][].class);
-            //List<User> users = Arrays.asList(mapper.readValue(responseContent.toString(), User[].class));
-            
             System.out.println(responseContent.toString());
             
             
@@ -95,19 +91,24 @@ public class GenericServices {
 		OutputStream os = conn.getOutputStream();
 		os.write(input.getBytes());
 		os.flush();
-
+                String output;
+                
 		if (conn.getResponseCode() == 200) {
 			BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-                        String output;
+                        
                         System.out.println("Output from Server .... \n");
                         while ((output = br.readLine()) != null) {
                             System.out.println(output);
+                            conn.disconnect();
+                            return output;
                         }
-		}
+		}else{
+                    return Integer.toString(conn.getResponseCode());
+                }
                 
 		conn.disconnect();
-                return "Ok";
-
+                return output;
+                
             } catch (MalformedURLException e) {
 
 		return e.toString();

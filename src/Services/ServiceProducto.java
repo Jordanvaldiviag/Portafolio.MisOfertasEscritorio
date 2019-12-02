@@ -9,12 +9,24 @@ import Helpers.ProductoHelper;
 import Models.Categoria;
 import java.util.ArrayList;
 import Models.ProductoElement;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import portafolio.misofertasescritorio.products.MaintainerProducts;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+
 
 /**
  *
@@ -73,6 +85,7 @@ public class ServiceProducto {
         GenericServices servicio = new GenericServices();
         
         String result = servicio.Post(producto,"http://ofertasportafoli-001-site1.dtempurl.com/api/producto");
+        
         System.out.println(result);
         
         return result;
@@ -97,6 +110,32 @@ public class ServiceProducto {
         String result = servicio.Delete(idProducto, "http://ofertasportafoli-001-site1.dtempurl.com/api/producto/");
         
         return result;
+    }
+    
+    public void SubirImagenstatic(String idProducto, File imagen) throws IOException {
+        HttpClient httpclient = new DefaultHttpClient();
+
+        HttpPut httppost = new HttpPut("http://ofertasportafoli-001-site1.dtempurl.com/api/subirarchivo/"+idProducto);
+
+        MultipartEntity mpEntity = new MultipartEntity();
+        ContentBody cbFile = new FileBody(imagen, "image/jpeg");
+        mpEntity.addPart("userfile", cbFile);
+
+        httppost.setEntity(mpEntity);
+        System.out.println("executing request " + httppost.getRequestLine());
+        HttpResponse response = httpclient.execute(httppost);
+        HttpEntity resEntity = response.getEntity();
+
+        System.out.println(response.getStatusLine());
+        if (resEntity != null) {
+          System.out.println(EntityUtils.toString(resEntity));
+        }
+        if (resEntity != null) {
+          resEntity.consumeContent();
+        }
+        
+        httpclient.getConnectionManager().shutdown();
+        
     }
     
 }
