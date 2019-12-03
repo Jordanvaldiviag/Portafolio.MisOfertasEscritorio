@@ -84,7 +84,7 @@ public final class RegisterBusiness extends javax.swing.JFrame {
 
         cbcComuna.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcComuna.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, 350, -1));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -106,7 +106,7 @@ public final class RegisterBusiness extends javax.swing.JFrame {
         jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 380, -1));
 
         cbcRegion.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-        cbcRegion.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 0, true), "Region", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        cbcRegion.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Region", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 350, 50));
         cbcRegion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0){
@@ -213,9 +213,11 @@ public final class RegisterBusiness extends javax.swing.JFrame {
         if (!Validations.validarNoVacio(nombre)) {
             listaErrores.add("La Razon Social no puede estar en blanco");
         }
-        if (Validations.validarNumeroLong(txtTelefono.getText()) == 0 ) {
-            listaErrores.add("El Telefono no puede estar en blanco");
+        
+        if (telefono == 0 ) {
+            listaErrores.add("El Telefono no puede contener caracteres alfanumericos");
         }
+        
         if (!Validations.validarNoVacio(direccion)) {
             listaErrores.add("La Direccion no puede estar en blanco");
         }

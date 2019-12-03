@@ -116,7 +116,7 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Empresa Patrocinadora">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder roundedCorners="true" thickness="0">
+                    <LineBorder roundedCorners="true">
                       <Color PropertyName="color" blue="0" green="7f" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -433,7 +433,7 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Categoria">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder roundedCorners="true" thickness="0">
+                    <LineBorder roundedCorners="true">
                       <Color PropertyName="color" blue="0" green="7f" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>

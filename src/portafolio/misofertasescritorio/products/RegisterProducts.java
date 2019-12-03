@@ -328,7 +328,7 @@ public final class RegisterProducts extends javax.swing.JFrame {
             
             String idProducto;
             idProducto = servicio.AgregarProducto(producto);
-            
+            JOptionPane.showMessageDialog(null, "Producto agregado con exito");
             try {
                 servicio.SubirImagenstatic(idProducto, imagenProducto);
             } catch (IOException ex) {
@@ -348,35 +348,42 @@ public final class RegisterProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardar1ActionPerformed
 
     private void btnSelecImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecImagenActionPerformed
+        lblImagenProducto.setIcon(null);
+        lblDescripcionImagen.setText("(NombreImagen)");
         JFileChooser fileChooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG o PNG", "jpg", "png");
         fileChooser.setFileFilter(filter);
         int seleccion = fileChooser.showOpenDialog(this);
-        if (seleccion == JFileChooser.APPROVE_OPTION)
+        if (seleccion == JFileChooser.APPROVE_OPTION)        
         {
             File inputFile = fileChooser.getSelectedFile();
             String baseUrl = System.getProperty("user.dir")+"/src/ImagenesSubidas/";
             String url = baseUrl+fileChooser.getSelectedFile().getName();
             File outputFile = new File(url);
+            outputFile.deleteOnExit();
             try (InputStream is = new FileInputStream(inputFile)) {
-            ImageInputStream iis = ImageIO.createImageInputStream(is);
-            BufferedImage image = ImageIO.read(iis);
-            try (OutputStream os = new FileOutputStream(outputFile)) {
-                ImageOutputStream ios = ImageIO.createImageOutputStream(os);
-                ImageIO.write(image, "jpg", ios);
-                } catch (Exception exp) {
-                    exp.printStackTrace();
+                ImageInputStream iis = ImageIO.createImageInputStream(is);
+                BufferedImage image = ImageIO.read(iis);
+                    try (OutputStream os = new FileOutputStream(outputFile)) {
+                        ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+                        ImageIO.write(image, "jpg", ios);
+                    } catch (Exception exp) {
+                        exp.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error con el formato de la imagen");
+                    }
+                String urlCacheImage = baseUrl+"cache/"+fileChooser.getSelectedFile().getName();
+                ImageResizer.copyImage(url, urlCacheImage);
+                lblDescripcionImagen.setText(fileChooser.getSelectedFile().getName());
+                if (!urlCacheImage.isEmpty()) {
+                    lblImagenProducto.setIcon(new javax.swing.ImageIcon(urlCacheImage));
+                    imagenProducto = new File(url);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Error con el procesamiento de la imagen, intente con otra");
                 }
+                
             }catch (Exception exp) {
                 exp.printStackTrace();
             }
-            String urlCacheImage = baseUrl+"cache/"+fileChooser.getSelectedFile().getName();
-            ImageResizer.copyImage(url, urlCacheImage);
-            
-            lblDescripcionImagen.setText(fileChooser.getSelectedFile().getName());
-            lblImagenProducto.setIcon(new javax.swing.ImageIcon(urlCacheImage));
-            
-            imagenProducto = new File(url);
         }
     }//GEN-LAST:event_btnSelecImagenActionPerformed
 

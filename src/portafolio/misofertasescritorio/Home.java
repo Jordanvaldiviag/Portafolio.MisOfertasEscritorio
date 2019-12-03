@@ -24,7 +24,6 @@ public class Home extends javax.swing.JFrame {
      */
     public Home() {
         initComponents();
-        
     }
 
     /**
@@ -39,13 +38,18 @@ public class Home extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         buttonEntrar = new javax.swing.JButton();
         textCorreo = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ingresar al sistema");
+        setPreferredSize(new java.awt.Dimension(630, 620));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -55,57 +59,58 @@ public class Home extends javax.swing.JFrame {
         buttonEntrar.setForeground(new java.awt.Color(255, 127, 0));
         buttonEntrar.setText("Ingresar");
         buttonEntrar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 3, true));
+        buttonEntrar.setOpaque(false);
         buttonEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonEntrarActionPerformed(evt);
             }
         });
-        jPanel1.add(buttonEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 320, 130, 40));
+        jPanel1.add(buttonEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 520, 180, 40));
 
         textCorreo.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         textCorreo.setForeground(new java.awt.Color(122, 122, 122));
-        textCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Correo Electronico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 11), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 320, 50));
+        textCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 3, true), "Correo Electronico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 11), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(textCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 330, 50));
 
-        jLabel1.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(120, 120, 120));
-        jLabel1.setText("Bienvenido");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
-
-        jPanel2.setBackground(new java.awt.Color(255, 127, 0));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 210, 220, 190));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoIngresaSistema.png"))); // NOI18N
-        jLabel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 127, 0)));
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, -20, 240, -1));
+        jLabel6.setFont(new java.awt.Font("Leelawadee UI", 1, 20)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 127, 0));
+        jLabel6.setText("Sistemas de Administracion y Reporte");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 370, -1));
 
         txtPassword.setForeground(new java.awt.Color(122, 122, 122));
-        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 240, 320, 50));
+        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 3, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 440, 330, 50));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HomeBackGround.jpg"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 260, 600));
+
+        jLabel3.setFont(new java.awt.Font("Leelawadee UI", 1, 48)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 127, 0));
+        jLabel3.setText("Mis Ofertas");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, 270, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/HomeCandado (2).png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, 440, 410));
+
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(255, 102, 102));
+        jLabel4.setOpaque(true);
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 390, 600));
+
+        jLabel5.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 127, 0));
+        jLabel5.setText("Sistemas de Administracion y Reporte");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 330, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -199,9 +204,12 @@ public class Home extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEntrar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField textCorreo;
     private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables

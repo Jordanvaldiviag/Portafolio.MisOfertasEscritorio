@@ -82,9 +82,7 @@ public class ServiceProducto {
     
     
     public String AgregarProducto(ProductoHelper producto){
-        GenericServices servicio = new GenericServices();
-        
-        String result = servicio.Post(producto,"http://ofertasportafoli-001-site1.dtempurl.com/api/producto");
+        String result = GenericServices.Post(producto,"http://ofertasportafoli-001-site1.dtempurl.com/api/producto");
         
         System.out.println(result);
         
@@ -92,11 +90,9 @@ public class ServiceProducto {
     }
     
     public String ActualizarProducto(ProductoHelper producto){
-        GenericServices servicio = new GenericServices();
-        
         String varProducto = Long.toString(MaintainerProducts.varSessionProducto);
         
-        String result = servicio.Update(producto, "http://ofertasportafoli-001-site1.dtempurl.com/api/producto/", varProducto);
+        String result = GenericServices.Update(producto, "http://ofertasportafoli-001-site1.dtempurl.com/api/producto/", varProducto);
         
         return result;
         
@@ -105,9 +101,7 @@ public class ServiceProducto {
     public String EliminarProducto(int id){
         String idProducto = Integer.toString(id);
         
-        GenericServices servicio = new GenericServices();
-        
-        String result = servicio.Delete(idProducto, "http://ofertasportafoli-001-site1.dtempurl.com/api/producto/");
+        String result = GenericServices.Delete(idProducto, "http://ofertasportafoli-001-site1.dtempurl.com/api/producto/");
         
         return result;
     }

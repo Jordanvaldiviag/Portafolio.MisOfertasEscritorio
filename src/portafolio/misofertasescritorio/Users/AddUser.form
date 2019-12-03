@@ -577,7 +577,7 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Empresa">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="0">
+                    <LineBorder roundedCorners="true">
                       <Color PropertyName="color" blue="0" green="7f" red="ff" type="rgb"/>
                     </LineBorder>
                   </Border>
@@ -611,7 +611,9 @@
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                 <TitledBorder title="Tipo de Usuario">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                    <LineBorder thickness="0"/>
+                    <LineBorder roundedCorners="true">
+                      <Color PropertyName="color" blue="0" green="7f" red="ff" type="rgb"/>
+                    </LineBorder>
                   </Border>
                   <Font PropertyName="font" name="Leelawadee UI Semilight" size="14" style="1"/>
                   <Color PropertyName="color" blue="0" green="7f" red="ff" type="rgb"/>

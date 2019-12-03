@@ -121,7 +121,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
 
         cbcEmpresa.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcEmpresa.setForeground(new java.awt.Color(120, 120, 120));
-        cbcEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 0, true), "Empresa Patrocinadora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        cbcEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Empresa Patrocinadora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 330, 50));
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 640, 880, 10));
 
@@ -200,7 +200,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
 
         cbcCategoriaProducto.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcCategoriaProducto.setForeground(new java.awt.Color(102, 102, 102));
-        cbcCategoriaProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 0, true), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        cbcCategoriaProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 330, 50));
 
         txtModelo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
@@ -343,6 +343,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         if (listaErrores.isEmpty()) {
             ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento1, temporada, idEmpresa, idCategoria);
             servicio.ActualizarProducto(producto);
+            JOptionPane.showMessageDialog(null, "Producto actualizado con exito");
             try {
                 servicio.SubirImagenstatic(idProductoSession, imagenProductoActualizado);
             } catch (IOException ex) {
@@ -370,26 +371,30 @@ public final class UpdateProducts extends javax.swing.JFrame {
         {
             File inputFile = fileChooser.getSelectedFile();
             String baseUrl = System.getProperty("user.dir")+"/src/ImagenesSubidas/";
-            String url = baseUrl+fileChooser.getSelectedFile().getName();
+            String url = baseUrl+fileChooser.getSelectedFile().getName()+"copia";
             File outputFile = new File(url);
+            outputFile.deleteOnExit();
             try (InputStream is = new FileInputStream(inputFile)) {
                 ImageInputStream iis = ImageIO.createImageInputStream(is);
                 BufferedImage image = ImageIO.read(iis);
+                
                 try (OutputStream os = new FileOutputStream(outputFile)) {
                     ImageOutputStream ios = ImageIO.createImageOutputStream(os);
                     ImageIO.write(image, "jpg", ios);
                 } catch (Exception exp) {
                     exp.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error con el formato de la Imagen");
                 }
-            }catch (Exception exp) {
-                exp.printStackTrace();
-            }
+                
             String urlCacheImage = baseUrl+"cache/"+fileChooser.getSelectedFile().getName();
             ImageResizer.copyImage(url, urlCacheImage);
-
             lblDescripcionImagen.setText(fileChooser.getSelectedFile().getName());
             lblImagenProducto.setIcon(new javax.swing.ImageIcon(urlCacheImage));
             imagenProductoActualizado = new File(url);
+            
+            }catch (Exception exp) {
+                 exp.printStackTrace();
+            }
         }
     }//GEN-LAST:event_btnSelecImagenActionPerformed
 
