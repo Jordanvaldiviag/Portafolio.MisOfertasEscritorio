@@ -49,23 +49,18 @@ public final class InfoProducto extends javax.swing.JFrame {
         jYearChooser1 = new com.toedter.calendar.JYearChooser();
         jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
         jPanel1 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOfertas = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
+        setPreferredSize(new java.awt.Dimension(852, 190));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Informacion del Producto");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 390, 50));
 
         jTableOfertas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -98,9 +93,17 @@ public final class InfoProducto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableOfertas);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 810, 70));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 810, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 180));
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Informacion del Producto");
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 60));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 170));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

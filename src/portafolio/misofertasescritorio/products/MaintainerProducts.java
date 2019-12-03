@@ -10,6 +10,7 @@ import Services.ServiceProducto;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import portafolio.misofertasescritorio.IconCellRenderer;
 
@@ -42,38 +43,35 @@ public final class MaintainerProducts extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
-        lblTitulo = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableProductos = new javax.swing.JTable();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setMaximumSize(new java.awt.Dimension(1101, 579));
+        jPanel1.setMinimumSize(new java.awt.Dimension(1101, 579));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1101, 579));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 127, 0));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarLista.png"))); // NOI18N
-        btnActualizar.setText("Actualizar");
+        btnActualizar.setText("Refrescar");
         btnActualizar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 150, 90, 20));
-
-        lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Datos de los Productos");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 390, 50));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 150, 90, 20));
 
         btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -87,11 +85,13 @@ public final class MaintainerProducts extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 170, 40));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 40));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoRegistrarProducto.png"))); // NOI18N
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 60, 40));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 60, 40));
 
+        jTableProductos.setBackground(new java.awt.Color(243, 243, 243));
+        jTableProductos.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jTableProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -104,7 +104,7 @@ public final class MaintainerProducts extends javax.swing.JFrame {
                 java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, true, true
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,17 +115,36 @@ public final class MaintainerProducts extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableProductos.setGridColor(new java.awt.Color(204, 204, 204));
         jTableProductos.setRowHeight(35);
+        jTableProductos.getTableHeader().setReorderingAllowed(false);
         jTableProductos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableProductosMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableProductos);
+        if (jTableProductos.getColumnModel().getColumnCount() > 0) {
+            jTableProductos.getColumnModel().getColumn(9).setResizable(false);
+            jTableProductos.getColumnModel().getColumn(9).setPreferredWidth(28);
+            jTableProductos.getColumnModel().getColumn(10).setResizable(false);
+            jTableProductos.getColumnModel().getColumn(10).setPreferredWidth(28);
+            jTableProductos.getColumnModel().getColumn(11).setMinWidth(0);
+            jTableProductos.getColumnModel().getColumn(11).setPreferredWidth(0);
+            jTableProductos.getColumnModel().getColumn(11).setMaxWidth(0);
+        }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 810, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 1080, 380));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 430));
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Datos de los Productos");
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 100));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1101, 579));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -146,6 +165,7 @@ public final class MaintainerProducts extends javax.swing.JFrame {
             
             UpdateProducts updateProducts = new UpdateProducts();
             updateProducts.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            updateProducts.setLocationRelativeTo(null);
             updateProducts.setVisible(true);
         }
         
@@ -155,6 +175,7 @@ public final class MaintainerProducts extends javax.swing.JFrame {
             System.out.println(varSessionProducto);
             PopupDeleteProducts popupDeleteProducts = new PopupDeleteProducts();
             popupDeleteProducts.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            popupDeleteProducts.setLocationRelativeTo(null);
             popupDeleteProducts.setVisible(true);
         }
     }//GEN-LAST:event_jTableProductosMouseClicked
@@ -175,21 +196,13 @@ public final class MaintainerProducts extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaintainerProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaintainerProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaintainerProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MaintainerProducts.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 

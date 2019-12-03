@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -59,7 +60,6 @@ public final class RegisterProducts extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
         txtImagen = new javax.swing.JTextField();
         cbcEmpresa = new javax.swing.JComboBox<>();
         jSeparator1 = new javax.swing.JSeparator();
@@ -86,41 +86,38 @@ public final class RegisterProducts extends javax.swing.JFrame {
         lblImagenOferta1 = new javax.swing.JLabel();
         lblDescripcionImagen = new javax.swing.JLabel();
         btnSelecImagen = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Producto");
+        setPreferredSize(new java.awt.Dimension(1040, 899));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 127, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Ingrese los datos del Producto");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 10, 390, 50));
-
         txtImagen.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtImagen.setForeground(new java.awt.Color(102, 102, 102));
         txtImagen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Url Imagen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 340, -1));
+        jPanel1.add(txtImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 350, -1));
 
         cbcEmpresa.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcEmpresa.setForeground(new java.awt.Color(120, 120, 120));
         cbcEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Empresa Patrocinadora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, 340, 50));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 640, 20));
+        jPanel1.add(cbcEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 340, 50));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 770, 870, 20));
 
         txtStockProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtStockProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtStockProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Stock del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtStockProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 340, -1));
+        jPanel1.add(txtStockProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 170, -1));
 
         txtNombreProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtNombreProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtNombreProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Nombre del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 730, -1));
+        jPanel1.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 730, -1));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 127, 0));
         jScrollPane1.setBorder(null);
@@ -135,11 +132,10 @@ public final class RegisterProducts extends javax.swing.JFrame {
         txtDescripcion.setCaretColor(new java.awt.Color(255, 127, 0));
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 730, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 470, 1000, -1));
 
         lblIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoGuardar.png"))); // NOI18N
-        lblIconoGuardar.setText("jLabel1");
-        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 640, 60, 50));
+        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 790, 60, 50));
 
         btnGuardar1.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar1.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -151,77 +147,77 @@ public final class RegisterProducts extends javax.swing.JFrame {
                 btnGuardar1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 640, 200, 50));
+        jPanel1.add(btnGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 790, 200, 50));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(120, 120, 120));
         jLabel2.setText("Nota*");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 290, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 660, 290, 20));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel3.setText("Precio: Solo debe ser caracteres numericos.");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 650, 270, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 690, 270, -1));
 
         jLabel4.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel4.setText("Stock del producto: Solo debe ser caracteres numericos.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 670, 280, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 710, 280, -1));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel5.setText("Descripcion: No debe superar los 500 caracteres.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 650, 250, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 690, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel6.setText("Imagen: tamaño 240 x 240 / Extension JPG o PNG");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 670, 250, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 710, 250, -1));
 
         jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel7.setText("Fecha vencimiento: DD/MM/AAAA");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 270, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 730, 270, -1));
 
         jLabel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 1, true));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 600, 90));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 660, 600, 90));
 
         txtPrecioProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPrecioProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtPrecioProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Precio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 223, 160, 60));
+        jPanel1.add(txtPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 350, 60));
 
         cbcCategoriaProducto.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcCategoriaProducto.setForeground(new java.awt.Color(120, 120, 120));
         cbcCategoriaProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 50));
+        jPanel1.add(cbcCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 190, 340, 50));
 
         txtModelo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(102, 102, 102));
         txtModelo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Modelo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 340, -1));
+        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 260, 340, -1));
 
         txtTemporada.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtTemporada.setForeground(new java.awt.Color(102, 102, 102));
         txtTemporada.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Temporada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, 340, -1));
+        jPanel1.add(txtTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 330, 340, -1));
 
         txtMarca.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(102, 102, 102));
         txtMarca.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Marca", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 340, -1));
-        jPanel1.add(jDateFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 150, 30));
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 350, -1));
+        jPanel1.add(jDateFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, 150, 30));
 
         lblImagenProducto.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblImagenProducto.setForeground(new java.awt.Color(120, 120, 120));
         lblImagenProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagenProducto.setText("No Image");
         lblImagenProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblImagenProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 80, 240, 200));
+        jPanel1.add(lblImagenProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 240, 200));
 
         lblImagenOferta1.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblImagenOferta1.setForeground(new java.awt.Color(120, 120, 120));
         lblImagenOferta1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagenOferta1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Fecha Caducidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblImagenOferta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 170, 60));
+        jPanel1.add(lblImagenOferta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 170, 60));
 
         lblDescripcionImagen.setText("(NombreImagen)");
-        jPanel1.add(lblDescripcionImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 290, 240, -1));
+        jPanel1.add(lblDescripcionImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 330, 240, -1));
 
         btnSelecImagen.setText("Seleccionar Imagen");
         btnSelecImagen.addActionListener(new java.awt.event.ActionListener() {
@@ -229,17 +225,26 @@ public final class RegisterProducts extends javax.swing.JFrame {
                 btnSelecImagenActionPerformed(evt);
             }
         });
-        jPanel1.add(btnSelecImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 320, 150, -1));
+        jPanel1.add(btnSelecImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 360, 150, -1));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 640, 870, 20));
+
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Ingrese los datos del Producto");
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 100));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1082, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
         );
 
         pack();
@@ -255,7 +260,7 @@ public final class RegisterProducts extends javax.swing.JFrame {
         String stock0 = txtStockProducto.getText();
         String imagen = txtImagen.getText();
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        String fechaVencimiento = f.format(jDateFechaVencimiento.getDate());
+        Date fechaVencimiento0 = jDateFechaVencimiento.getDate();
         String temporada = txtTemporada.getText();
         
         Categoria categoria = (Categoria)cbcCategoriaProducto.getSelectedItem();
@@ -267,11 +272,18 @@ public final class RegisterProducts extends javax.swing.JFrame {
         //Formateo de entradas
         Long precioNormal1 = null;
         Long stock1 = null;
+        String fechaVencimiento1 = "";
         
         //Fin de formateo de entradas
         
         //Validaciones
         ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (fechaVencimiento0 != null) {
+            fechaVencimiento1 = f.format(jDateFechaVencimiento.getDate());
+        }else{
+            listaErrores.add("Seleccione una Fecha al producto");
+        }
         
         if (!Validations.validarNoVacio(nombre)) {
             listaErrores.add("El nombre del producto no puede estar en blanco");
@@ -312,7 +324,7 @@ public final class RegisterProducts extends javax.swing.JFrame {
         
         //Agregar producto
         if (listaErrores.isEmpty()) {
-            ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento, temporada, idEmpresa, idCategoria);
+            ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento1, temporada, idEmpresa, idCategoria);
             
             String idProducto;
             idProducto = servicio.AgregarProducto(producto);
@@ -436,6 +448,7 @@ public final class RegisterProducts extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lblDescripcionImagen;
     private javax.swing.JLabel lblIconoGuardar;
     private javax.swing.JLabel lblImagenOferta1;

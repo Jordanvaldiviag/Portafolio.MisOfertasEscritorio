@@ -12,6 +12,7 @@ import Services.ServiceProducto;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import portafolio.misofertasescritorio.IconCellRenderer;
 
@@ -50,38 +51,34 @@ public final class MaintainerOffers extends javax.swing.JFrame {
         jLocaleChooser1 = new com.toedter.components.JLocaleChooser();
         jPanel1 = new javax.swing.JPanel();
         btnActualizar = new javax.swing.JButton();
-        lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableOfertas = new javax.swing.JTable();
         btnRegistrar = new javax.swing.JButton();
         lblIcono = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Empresas");
+        setPreferredSize(new java.awt.Dimension(1099, 531));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1099, 511));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Trebuchet MS", 1, 11)); // NOI18N
         btnActualizar.setForeground(new java.awt.Color(255, 127, 0));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarLista.png"))); // NOI18N
-        btnActualizar.setText("Actualizar");
+        btnActualizar.setText("Refrescar");
         btnActualizar.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 90, 20));
-
-        lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Datos de las Ofertas");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 390, 50));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 160, 90, 20));
 
         jTableOfertas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,14 +104,24 @@ public final class MaintainerOffers extends javax.swing.JFrame {
             }
         });
         jTableOfertas.setRowHeight(35);
+        jTableOfertas.getTableHeader().setReorderingAllowed(false);
         jTableOfertas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableOfertasMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(jTableOfertas);
+        if (jTableOfertas.getColumnModel().getColumnCount() > 0) {
+            jTableOfertas.getColumnModel().getColumn(8).setResizable(false);
+            jTableOfertas.getColumnModel().getColumn(8).setPreferredWidth(28);
+            jTableOfertas.getColumnModel().getColumn(9).setResizable(false);
+            jTableOfertas.getColumnModel().getColumn(9).setPreferredWidth(28);
+            jTableOfertas.getColumnModel().getColumn(10).setMinWidth(0);
+            jTableOfertas.getColumnModel().getColumn(10).setPreferredWidth(0);
+            jTableOfertas.getColumnModel().getColumn(10).setMaxWidth(0);
+        }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 810, 280));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 1070, 300));
 
         btnRegistrar.setBackground(new java.awt.Color(255, 255, 255));
         btnRegistrar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -128,12 +135,20 @@ public final class MaintainerOffers extends javax.swing.JFrame {
                 btnRegistrarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 40));
+        jPanel1.add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 170, 40));
 
         lblIcono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/IconoRegistrarUsuario.png"))); // NOI18N
-        jPanel1.add(lblIcono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 60, 40));
+        jPanel1.add(lblIcono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 130, 60, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 470));
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Datos de las Ofertas");
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 100));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -198,21 +213,15 @@ public final class MaintainerOffers extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaintainerOffers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaintainerOffers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaintainerOffers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MaintainerOffers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

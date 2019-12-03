@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.UIManager;
 
 /**
  *
@@ -49,7 +50,6 @@ public final class UpdateUsers extends javax.swing.JFrame {
 
         bgOfertas = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
-        lblTitulo = new javax.swing.JLabel();
         jDateNacimiento = new com.toedter.calendar.JDateChooser();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -59,6 +59,8 @@ public final class UpdateUsers extends javax.swing.JFrame {
         btnActualizar = new javax.swing.JButton();
         lblIconoActualizar = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -77,46 +79,41 @@ public final class UpdateUsers extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         lblNuevaComuna = new javax.swing.JLabel();
         lblFechaNacimiento = new javax.swing.JLabel();
+        lblTitulo = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Empresa");
         setBackground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(844, 895));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setBackground(new java.awt.Color(0, 153, 204));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
-        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTitulo.setText("Ingrese los datos del Usuario que necesite actualizar");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 670, 50));
-
         jDateNacimiento.setForeground(new java.awt.Color(255, 51, 51));
-        jPanel1.add(jDateNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 290, 40));
+        jPanel1.add(jDateNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 360, 30));
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 72, -1, -1));
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 30, 480));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 780, 760, 30));
 
         txtComuna.setEditable(false);
         txtComuna.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtComuna.setForeground(new java.awt.Color(255, 51, 51));
-        txtComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Comuna Anterior", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 360, 380, -1));
+        txtComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 2, true), "Comuna Anterior", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel1.add(txtComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 330, 340, -1));
 
         txtApellidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtApellidos.setForeground(new java.awt.Color(102, 102, 102));
         txtApellidos.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Apellidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 380, -1));
+        jPanel1.add(txtApellidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 380, -1));
 
         txtPuntosObtenidos.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPuntosObtenidos.setForeground(new java.awt.Color(102, 102, 102));
         txtPuntosObtenidos.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Puntos Obtenidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPuntosObtenidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 610, 370, -1));
+        jPanel1.add(txtPuntosObtenidos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 550, 150, 70));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -128,81 +125,89 @@ public final class UpdateUsers extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 720, 250, 50));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 800, 160, 50));
 
         lblIconoActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoActualizarVerde.png"))); // NOI18N
-        jPanel1.add(lblIconoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 720, 60, 50));
+        jPanel1.add(lblIconoActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 800, 60, 50));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel5.setText("Direccion: No debe superar los 500 caracteres.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 770, 250, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 730, 250, -1));
+
+        jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
+        jLabel6.setText("Rut: Sin puntos y con guion verificador");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 690, 270, -1));
+
+        jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
+        jLabel7.setText("Puntos Obtenidos: Solo deben ser caracteres numericos.");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 690, 270, -1));
 
         jLabel4.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel4.setText("Telefono: Solo debe ser caracteres numericos.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 750, 290, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 710, 290, -1));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
-        jLabel3.setText("Rut: Sin puntos y con guion verificador");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 730, 270, -1));
+        jLabel3.setText("Password: Ingrese una password segura.");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 710, 270, -1));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(120, 120, 120));
         jLabel2.setText("Nota*");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 700, 290, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 660, 290, 20));
 
         jLabel9.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 1, true));
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, 390, 100));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 660, 670, 100));
 
         cbcTipoUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcTipoUsuario.setForeground(new java.awt.Color(120, 120, 120));
         cbcTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 380, 60));
+        jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 420, 370, 50));
 
         txtNombres.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtNombres.setForeground(new java.awt.Color(102, 102, 102));
         txtNombres.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Nombres", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 380, -1));
+        jPanel1.add(txtNombres, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 380, -1));
 
         cbcEmpresas.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcEmpresas.setForeground(new java.awt.Color(120, 120, 120));
-        cbcEmpresas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 430, 380, 60));
+        cbcEmpresas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Empresa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcEmpresas, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 480, 370, 50));
 
         bgOfertas.add(rbNo);
         rbNo.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbNo.setForeground(new java.awt.Color(102, 102, 102));
         rbNo.setText("No");
-        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 550, -1, 30));
+        jPanel1.add(rbNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 580, -1, 30));
 
         bgOfertas.add(rbSi);
         rbSi.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         rbSi.setForeground(new java.awt.Color(102, 102, 102));
         rbSi.setSelected(true);
         rbSi.setText("Si");
-        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 550, 40, 30));
+        jPanel1.add(rbSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 580, 40, 30));
 
         lblOferta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "¿Suscribir a nuevas ofertas?", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 520, 240, 70));
+        jPanel1.add(lblOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 220, 70));
 
         txtTelefono.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(102, 102, 102));
         txtTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Telefono", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 380, -1));
+        jPanel1.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 380, -1));
 
         txtRut.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtRut.setForeground(new java.awt.Color(102, 102, 102));
         txtRut.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Rut", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 380, 60));
+        jPanel1.add(txtRut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 380, 60));
 
         txtPassword.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPassword.setForeground(new java.awt.Color(102, 102, 102));
         txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 380, -1));
+        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 380, -1));
 
         cbcRegion.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcRegion.setForeground(new java.awt.Color(120, 120, 120));
         cbcRegion.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Region", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 340, 50));
+        jPanel1.add(cbcRegion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, 340, 50));
         cbcRegion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent arg0){
                 RellenarComuna((String)cbcRegion.getSelectedItem());
@@ -212,34 +217,43 @@ public final class UpdateUsers extends javax.swing.JFrame {
         cbcComuna.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcComuna.setForeground(new java.awt.Color(120, 120, 120));
         cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 0), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 260, 340, 50));
+        jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 270, 340, 50));
 
         txtCorreo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(102, 102, 102));
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 380, -1));
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 380, -1));
 
         lblNuevaComuna.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblNuevaComuna.setForeground(new java.awt.Color(120, 120, 120));
         lblNuevaComuna.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblNuevaComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Nueva Region o Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblNuevaComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 380, 180));
+        jPanel1.add(lblNuevaComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 380, 220));
 
         lblFechaNacimiento.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblFechaNacimiento.setForeground(new java.awt.Color(120, 120, 120));
         lblFechaNacimiento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblFechaNacimiento.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Fecha Nacimiento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 310, 70));
+        jPanel1.add(lblFechaNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 380, 60));
+
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTitulo.setText("Actualice los datos del Usuario");
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 100));
+        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 640, 760, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 844, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 807, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 875, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -281,21 +295,15 @@ public final class UpdateUsers extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpdateUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpdateUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpdateUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(UpdateUsers.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -433,10 +441,13 @@ public final class UpdateUsers extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblFechaNacimiento;
     private javax.swing.JLabel lblIconoActualizar;
     private javax.swing.JLabel lblNuevaComuna;

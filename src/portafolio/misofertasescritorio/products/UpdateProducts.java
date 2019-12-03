@@ -9,16 +9,32 @@ import Helpers.ProductoHelper;
 import Models.Categoria;
 import Models.Empresas;
 import Models.ProductoElement;
+import Services.ImageResizer;
 import Services.ServiceEmpresa;
 import Services.ServiceProducto;
 import Services.Validations;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import javax.imageio.stream.ImageOutputStream;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -28,6 +44,9 @@ public final class UpdateProducts extends javax.swing.JFrame {
     
     ServiceProducto servicio = new ServiceProducto();
     ServiceEmpresa servicioEmpresa = new ServiceEmpresa();
+    public static File imagenProductoActualizado;
+    public static String imagenDelProducto;
+    public static String idProductoSession;
 
     /**
      * Creates new form MaintainerProducts
@@ -63,7 +82,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         txtPrecioProducto = new javax.swing.JTextField();
         cbcCategoriaProducto = new javax.swing.JComboBox<>();
@@ -72,41 +91,49 @@ public final class UpdateProducts extends javax.swing.JFrame {
         txtMarca = new javax.swing.JTextField();
         lblImagenOferta1 = new javax.swing.JLabel();
         jDateFechaVencimiento = new com.toedter.calendar.JDateChooser();
+        jSeparator2 = new javax.swing.JSeparator();
+        btnSelecImagen = new javax.swing.JButton();
+        lblDescripcionImagen = new javax.swing.JLabel();
+        lblImagenProducto = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Producto");
+        setPreferredSize(new java.awt.Dimension(1040, 899));
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 127, 0));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblTitulo.setBackground(new java.awt.Color(255, 255, 255));
-        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(51, 51, 51));
+        lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
+        lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 255, 255));
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Actualize los datos del Producto");
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 390, 50));
+        lblTitulo.setOpaque(true);
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 100));
 
         txtImagen.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtImagen.setForeground(new java.awt.Color(102, 102, 102));
         txtImagen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Imagen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 350, -1));
+        jPanel1.add(txtImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 240, -1));
 
         cbcEmpresa.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcEmpresa.setForeground(new java.awt.Color(120, 120, 120));
         cbcEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 0, true), "Empresa Patrocinadora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 230, 330, 50));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 600, 580, 10));
+        jPanel1.add(cbcEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 400, 330, 50));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 640, 880, 10));
 
         txtStockProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtStockProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtStockProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Stock del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtStockProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 160, -1));
+        jPanel1.add(txtStockProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 160, -1));
 
         txtNombreProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtNombreProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtNombreProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Nombre del producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 730, -1));
+        jPanel1.add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 710, -1));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 127, 0));
         jScrollPane1.setBorder(null);
@@ -121,11 +148,10 @@ public final class UpdateProducts extends javax.swing.JFrame {
         txtDescripcion.setCaretColor(new java.awt.Color(255, 127, 0));
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 730, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 990, -1));
 
         lblIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoGuardar.png"))); // NOI18N
-        lblIconoGuardar.setText("jLabel1");
-        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 640, 60, 50));
+        jPanel1.add(lblIconoGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 800, 60, 50));
 
         btnActualizar.setBackground(new java.awt.Color(255, 255, 255));
         btnActualizar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -137,67 +163,94 @@ public final class UpdateProducts extends javax.swing.JFrame {
                 btnActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 640, 200, 50));
+        jPanel1.add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 800, 200, 50));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(120, 120, 120));
         jLabel2.setText("Nota*");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 620, 290, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 660, 290, 20));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel3.setText("Precio: Solo debe ser caracteres numericos.");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 650, 270, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 690, 270, -1));
 
         jLabel4.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel4.setText("Stock del producto: Solo debe ser caracteres numericos.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 670, 280, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 710, 280, -1));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel5.setText("Descripcion: No debe superar los 500 caracteres.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 650, 250, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 690, 250, -1));
 
         jLabel6.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
-        jLabel6.setText("Imagen: tamaño 240 x 240 / Extension JPG o PNG");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 670, 250, -1));
+        jLabel6.setText("Imagen: debe ser extension JPG o PNG.");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 710, 250, -1));
 
-        jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
-        jLabel7.setText("Fecha vencimiento: DD/MM/AAAA");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 690, 270, -1));
+        jLabel9.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
+        jLabel9.setText("Fecha vencimiento: DD/MM/AAAA");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 730, 270, -1));
 
         jLabel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 1, true));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 640, 90));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 660, 710, 100));
 
         txtPrecioProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPrecioProducto.setForeground(new java.awt.Color(102, 102, 102));
         txtPrecioProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Precio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 340, -1));
+        jPanel1.add(txtPrecioProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, -1));
 
         cbcCategoriaProducto.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcCategoriaProducto.setForeground(new java.awt.Color(102, 102, 102));
         cbcCategoriaProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 0, true), "Categoria", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 50));
+        jPanel1.add(cbcCategoriaProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 200, 330, 50));
 
         txtModelo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtModelo.setForeground(new java.awt.Color(102, 102, 102));
         txtModelo.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Modelo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 340, -1));
+        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 330, -1));
 
         txtTemporada.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtTemporada.setForeground(new java.awt.Color(102, 102, 102));
         txtTemporada.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Temporada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, 340, -1));
+        jPanel1.add(txtTemporada, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 330, 330, -1));
 
         txtMarca.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtMarca.setForeground(new java.awt.Color(102, 102, 102));
         txtMarca.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Marca", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 340, -1));
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 350, -1));
 
         lblImagenOferta1.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblImagenOferta1.setForeground(new java.awt.Color(120, 120, 120));
         lblImagenOferta1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagenOferta1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Fecha Caducidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblImagenOferta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 300, 170, 60));
-        jPanel1.add(jDateFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 150, 30));
+        jPanel1.add(lblImagenOferta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, 170, 60));
+        jPanel1.add(jDateFechaVencimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 150, 30));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 780, 880, 10));
+
+        btnSelecImagen.setText("Seleccionar Imagen");
+        btnSelecImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSelecImagenActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSelecImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 370, 150, -1));
+
+        lblDescripcionImagen.setText("(NombreImagen)");
+        jPanel1.add(lblDescripcionImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 340, 240, -1));
+
+        lblImagenProducto.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
+        lblImagenProducto.setForeground(new java.awt.Color(120, 120, 120));
+        lblImagenProducto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblImagenProducto.setText("No Image");
+        lblImagenProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(lblImagenProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 130, 240, 200));
+
+        jButton1.setText("Ver Imagen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,9 +260,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
         );
 
         pack();
@@ -225,7 +276,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         String stock0 = txtStockProducto.getText();
         String imagen = txtImagen.getText();
         SimpleDateFormat f = new SimpleDateFormat("yyyy/MM/dd");
-        String fechaVencimiento = f.format(jDateFechaVencimiento.getDate());
+        Date fechaVencimiento0 = jDateFechaVencimiento.getDate();
         String temporada = txtTemporada.getText();
         Categoria categoria = (Categoria)cbcCategoriaProducto.getSelectedItem();
         long idCategoria = categoria.getIDCategoria();
@@ -235,11 +286,18 @@ public final class UpdateProducts extends javax.swing.JFrame {
         //Formateo de entradas
         Long precioNormal1 = null;
         Long stock1 = null;
+        String fechaVencimiento1 = "";
         
         //Fin de formateo de entradas
         
         //Validaciones
         ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (fechaVencimiento0 != null) {
+            fechaVencimiento1 = f.format(jDateFechaVencimiento.getDate());
+        }else{
+            listaErrores.add("Seleccione una Fecha al producto");
+        }
         
         if (!Validations.validarNoVacio(nombre)) {
             listaErrores.add("El nombre del producto no puede estar en blanco");
@@ -277,12 +335,20 @@ public final class UpdateProducts extends javax.swing.JFrame {
         if (!Validations.validarNoVacio(temporada)) {
             listaErrores.add("La temporada del producto no puede estar en blanco");
         }
+        
+        
         //Fin validaciones
         
         //Agregar producto
         if (listaErrores.isEmpty()) {
-            ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento, temporada, idEmpresa, idCategoria);
+            ProductoHelper producto = new ProductoHelper(nombre, precioNormal1, descripcion, marca, modelo, stock1, imagen, fechaVencimiento1, temporada, idEmpresa, idCategoria);
             servicio.ActualizarProducto(producto);
+            try {
+                servicio.SubirImagenstatic(idProductoSession, imagenProductoActualizado);
+            } catch (IOException ex) {
+                Logger.getLogger(UpdateProducts.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Error al subir la imagen");
+            }
             dispose();
         }else{
             String errores = "";
@@ -293,10 +359,43 @@ public final class UpdateProducts extends javax.swing.JFrame {
         }
         //Fin de agregar producto
         
-        
-        
-        
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnSelecImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSelecImagenActionPerformed
+        JFileChooser fileChooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG o PNG", "jpg", "png");
+        fileChooser.setFileFilter(filter);
+        int seleccion = fileChooser.showOpenDialog(this);
+        if (seleccion == JFileChooser.APPROVE_OPTION)
+        {
+            File inputFile = fileChooser.getSelectedFile();
+            String baseUrl = System.getProperty("user.dir")+"/src/ImagenesSubidas/";
+            String url = baseUrl+fileChooser.getSelectedFile().getName();
+            File outputFile = new File(url);
+            try (InputStream is = new FileInputStream(inputFile)) {
+                ImageInputStream iis = ImageIO.createImageInputStream(is);
+                BufferedImage image = ImageIO.read(iis);
+                try (OutputStream os = new FileOutputStream(outputFile)) {
+                    ImageOutputStream ios = ImageIO.createImageOutputStream(os);
+                    ImageIO.write(image, "jpg", ios);
+                } catch (Exception exp) {
+                    exp.printStackTrace();
+                }
+            }catch (Exception exp) {
+                exp.printStackTrace();
+            }
+            String urlCacheImage = baseUrl+"cache/"+fileChooser.getSelectedFile().getName();
+            ImageResizer.copyImage(url, urlCacheImage);
+
+            lblDescripcionImagen.setText(fileChooser.getSelectedFile().getName());
+            lblImagenProducto.setIcon(new javax.swing.ImageIcon(urlCacheImage));
+            imagenProductoActualizado = new File(url);
+        }
+    }//GEN-LAST:event_btnSelecImagenActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        MostrarImagen mostrarImagen = new MostrarImagen();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     
     public void CargarComponentes(){
@@ -321,10 +420,10 @@ public final class UpdateProducts extends javax.swing.JFrame {
         int idProducto = MaintainerProducts.varSessionProducto;
         ArrayList<ProductoElement> listaProductos;
         listaProductos = servicio.ListarProductos();
-        
+        Image image = null;
         for (int i = 0; i < listaProductos.size(); i++) {
             if (idProducto == listaProductos.get(i).getIDProducto()) {
-                
+                idProductoSession = Long.toString(listaProductos.get(i).getIDProducto());
                 txtNombreProducto.setText(listaProductos.get(i).getNombre());
                 txtPrecioProducto.setText(Long.toString(listaProductos.get(i).getPrecioNormal()));
                 txtDescripcion.setText(listaProductos.get(i).getDescripcion());
@@ -332,13 +431,16 @@ public final class UpdateProducts extends javax.swing.JFrame {
                 txtModelo.setText(listaProductos.get(i).getModelo());
                 txtStockProducto.setText(Long.toString(listaProductos.get(i).getStock()));
                 txtImagen.setText(listaProductos.get(i).getImagen());
+                imagenDelProducto = listaProductos.get(i).getImagen();
                 DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = null;
+                
                 try{
                     date = f.parse(listaProductos.get(i).getFechaVencimiento());
                 }catch (ParseException e) {
                     e.printStackTrace();
                 }
+                
                 jDateFechaVencimiento.setDate(date);
                 txtTemporada.setText(listaProductos.get(i).getTemporada());
                 cbcCategoriaProducto.setSelectedItem(recuperarCategoria(listaProductos.get(i).getIDCategoria()));
@@ -385,7 +487,6 @@ public final class UpdateProducts extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-             
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         
         } catch (ClassNotFoundException ex) {
@@ -412,21 +513,26 @@ public final class UpdateProducts extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
+    private javax.swing.JButton btnSelecImagen;
     private javax.swing.JComboBox<Categoria> cbcCategoriaProducto;
     private javax.swing.JComboBox<Empresas> cbcEmpresa;
+    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateFechaVencimiento;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblDescripcionImagen;
     private javax.swing.JLabel lblIconoGuardar;
     private javax.swing.JLabel lblImagenOferta1;
+    private javax.swing.JLabel lblImagenProducto;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JTextArea txtDescripcion;
     private javax.swing.JTextField txtImagen;
