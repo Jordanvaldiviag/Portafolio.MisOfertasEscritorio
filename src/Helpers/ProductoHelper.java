@@ -96,7 +96,4 @@ public class ProductoHelper {
     @JsonProperty("IdCategoria")
     public void setIDCategoria(long value) { this.idCategoria = value; }
     
-    
-    
-    
 }

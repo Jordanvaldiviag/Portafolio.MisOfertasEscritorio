@@ -6,8 +6,10 @@
 package portafolio.misofertasescritorio.Offers;
 
 import Helpers.OfertaHelper;
+import Models.Empresas;
 import Models.ProductoElement;
 import Models.Usuario;
+import Services.ServiceEmpresa;
 import Services.ServiceOferta;
 import Services.ServiceProducto;
 import Services.ServiceUsuario;
@@ -29,7 +31,11 @@ public final class RegisterOffers extends javax.swing.JFrame {
     ServiceProducto servicio = new ServiceProducto();
     ServiceOferta serviceOferta = new ServiceOferta();
     ServiceUsuario servicioUsuario = new ServiceUsuario();
-
+    
+    ServiceEmpresa servicioEmpresa = new ServiceEmpresa();
+    ArrayList <Empresas> listaEmpresas = servicioEmpresa.ListarEmpresas();
+   
+    
     /**
      * Creates new form MaintainerProducts
      */
@@ -51,7 +57,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
         jDateOferta = new com.toedter.calendar.JDateChooser();
         lblImagenOferta = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        txtProducto = new javax.swing.JTextField();
+        txtEmpresa = new javax.swing.JTextField();
         txtCompraMax = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtDescripcion = new javax.swing.JTextArea();
@@ -60,7 +66,6 @@ public final class RegisterOffers extends javax.swing.JFrame {
         txtPrecioOferta = new javax.swing.JTextField();
         txtCompraMin = new javax.swing.JTextField();
         txtPorcDescuento = new javax.swing.JTextField();
-        cbcUsuario = new javax.swing.JComboBox<>();
         btnGuardar = new javax.swing.JButton();
         lblIconoGuardar1 = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -72,6 +77,8 @@ public final class RegisterOffers extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel9 = new javax.swing.JLabel();
+        cbcUsuario = new javax.swing.JComboBox<>();
+        txtProducto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Agregar Producto");
@@ -82,39 +89,24 @@ public final class RegisterOffers extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jDateOferta.setForeground(new java.awt.Color(255, 51, 51));
-        jPanel1.add(jDateOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, 180, 30));
+        jPanel1.add(jDateOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 180, 30));
 
         lblImagenOferta.setFont(new java.awt.Font("Leelawadee UI", 0, 14)); // NOI18N
         lblImagenOferta.setForeground(new java.awt.Color(120, 120, 120));
         lblImagenOferta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblImagenOferta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Fecha Caducidad", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(lblImagenOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 210, 60));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 650, 660, 20));
+        jPanel1.add(lblImagenOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 210, 60));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 720, 660, 20));
 
-        txtProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtProducto.setForeground(new java.awt.Color(102, 102, 102));
-        txtProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 440, -1));
-        txtProducto.getDocument().addDocumentListener(new DocumentListener() {
-            public void changedUpdate(DocumentEvent e) {
-                warn();
-            }
-            public void removeUpdate(DocumentEvent e) {
-                warn();
-            }
-            public void insertUpdate(DocumentEvent e) {
-                warn();
-            }
-
-            public void warn() {
-                CargarComponentes();
-            }
-        });
+        txtEmpresa.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        txtEmpresa.setForeground(new java.awt.Color(102, 102, 102));
+        txtEmpresa.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Empresa Patrocinadora", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtEmpresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 370, 60));
 
         txtCompraMax.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtCompraMax.setForeground(new java.awt.Color(102, 102, 102));
         txtCompraMax.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Compra Maxima", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtCompraMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 260, 140, -1));
+        jPanel1.add(txtCompraMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 250, 140, 60));
 
         jScrollPane1.setBackground(new java.awt.Color(255, 127, 0));
         jScrollPane1.setBorder(null);
@@ -129,7 +121,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
         txtDescripcion.setCaretColor(new java.awt.Color(255, 127, 0));
         jScrollPane1.setViewportView(txtDescripcion);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 700, 160));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 400, 700, 160));
 
         lblIconoGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoGuardar.png"))); // NOI18N
         lblIconoGuardar.setText("jLabel1");
@@ -150,22 +142,17 @@ public final class RegisterOffers extends javax.swing.JFrame {
         txtPrecioOferta.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPrecioOferta.setForeground(new java.awt.Color(102, 102, 102));
         txtPrecioOferta.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Precio", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPrecioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 180, 180, -1));
+        jPanel1.add(txtPrecioOferta, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 180, 60));
 
         txtCompraMin.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtCompraMin.setForeground(new java.awt.Color(102, 102, 102));
         txtCompraMin.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Compra Minima", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtCompraMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, 140, -1));
+        jPanel1.add(txtCompraMin, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 250, 140, 60));
 
         txtPorcDescuento.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtPorcDescuento.setForeground(new java.awt.Color(102, 102, 102));
-        txtPorcDescuento.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Porcentaje Descuento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPorcDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 180, 180, -1));
-
-        cbcUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
-        cbcUsuario.setForeground(new java.awt.Color(120, 120, 120));
-        cbcUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(cbcUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 310, 50));
+        txtPorcDescuento.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "% Descuento", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtPorcDescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, 120, 60));
 
         btnGuardar.setBackground(new java.awt.Color(255, 255, 255));
         btnGuardar.setFont(new java.awt.Font("Leelawadee UI", 1, 24)); // NOI18N
@@ -177,10 +164,10 @@ public final class RegisterOffers extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 670, 200, 50));
+        jPanel1.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 750, 200, 50));
 
         lblIconoGuardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconoGuardar.png"))); // NOI18N
-        jPanel1.add(lblIconoGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 670, 60, 50));
+        jPanel1.add(lblIconoGuardar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 750, 60, 50));
 
         lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
         lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
@@ -192,32 +179,58 @@ public final class RegisterOffers extends javax.swing.JFrame {
 
         jLabel7.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel7.setText("Compra Minima: Solo debe ser caracter numerico.");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 600, 270, 20));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 670, 270, 20));
 
         jLabel4.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel4.setText("Precio: Solo debe ser caracter numerico.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 580, 290, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 650, 290, 20));
 
         jLabel3.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel3.setText("Porcentaje Descuento: Solo debe ser caracter numerico.");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 560, 290, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 630, 290, 20));
 
         jLabel2.setFont(new java.awt.Font("Leelawadee UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 51, 51));
         jLabel2.setText("*Nota: Debe buscar primero un producto antes de ingresar los datos");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 470, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 610, 470, 20));
 
         jLabel5.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel5.setText("Descripcion: No debe superar los 500 caracteres.");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 560, 250, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 630, 250, 20));
 
         jLabel8.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 51), 1, true));
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 530, 630, 100));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 510, 660, 20));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, 630, 100));
+        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 580, 660, 20));
 
         jLabel9.setFont(new java.awt.Font("Leelawadee UI", 0, 11)); // NOI18N
         jLabel9.setText("Compra Maxima: Solo debe ser caracter numerico.");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 580, 260, 20));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 650, 260, 20));
+
+        cbcUsuario.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
+        cbcUsuario.setForeground(new java.awt.Color(120, 120, 120));
+        cbcUsuario.setMaximumRowCount(20);
+        cbcUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Funcionario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 12), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(cbcUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 340, 310, 50));
+
+        txtProducto.setText("");
+        txtProducto.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
+        txtProducto.setForeground(new java.awt.Color(102, 102, 102));
+        txtProducto.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 500, 60));
+        txtProducto.getDocument().addDocumentListener(new DocumentListener() {
+            public void changedUpdate(DocumentEvent e) {
+            }
+            public void removeUpdate(DocumentEvent e) {
+            }
+            public void insertUpdate(DocumentEvent e) {
+                System.out.println("InsertUpdate");
+                warn();
+            }
+
+            public void warn() {
+                CargarComponentes();
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -227,7 +240,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 836, Short.MAX_VALUE)
         );
 
         pack();
@@ -303,6 +316,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
         if (listaErrores.isEmpty()) {
             OfertaHelper oferta = new OfertaHelper(descripcion, compraMin1, compraMax1, fechaCaducidad, precio1, porcDescuento1, idProducto, idUsuario);
             serviceOferta.AgregarOferta(oferta);
+            JOptionPane.showMessageDialog(null, "Oferta Creada");
             dispose();
         }else{
             String errores = "";
@@ -316,9 +330,8 @@ public final class RegisterOffers extends javax.swing.JFrame {
     
     
     
-    public void CargarComponentes(){
+    protected void CargarComponentes(){
         CamposVisibles();
-        CargarUsuario();
     }
     
     /**
@@ -356,6 +369,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
     public void CamposVisibles(){
         if (txtProducto.getText().isEmpty()) {
             txtProducto.setEditable(false);
+            txtEmpresa.setEditable(false);
             txtCompraMax.setEditable(false);
             txtCompraMin.setEditable(false);
             txtDescripcion.setEditable(false);
@@ -365,6 +379,9 @@ public final class RegisterOffers extends javax.swing.JFrame {
             jDateOferta.setEnabled(false);
         }else{
             txtProducto.setEditable(false);
+            String nombreEmpresa = cargarEmpresa();
+            txtEmpresa.setText(nombreEmpresa);
+            txtEmpresa.setEditable(false);
             txtCompraMax.setEditable(true);
             txtCompraMin.setEditable(true);
             txtDescripcion.setEditable(true);
@@ -372,17 +389,39 @@ public final class RegisterOffers extends javax.swing.JFrame {
             txtPrecioOferta.setEditable(true);
             cbcUsuario.setEnabled(true);
             jDateOferta.setEnabled(true);
+            CargarUsuario();
         }
     }
     
-    public void CargarUsuario() {
-        ArrayList <Usuario> listaUsuarios;
-        listaUsuarios = servicioUsuario.ListarUsuarios();
+    private void CargarUsuario() {
         
-        for (int i = 0; i < listaUsuarios.size(); i++) {
-            cbcUsuario.addItem(listaUsuarios.get(i));
+        cbcUsuario.removeAllItems();
+        
+        ProductoElement producto = ListProducts.varSessionProductoSelect;
+        
+        for (int i = 0; i < listaEmpresas.size(); i++) {
+            if (producto.getIDEmpresa() == listaEmpresas.get(i).getIDEmpresa()) {
+                cbcUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(listaEmpresas.get(i).getUsuarios()));
+            }
         }
     }
+    
+    public String cargarEmpresa(){
+        String nombreEmpresa = "";
+        
+        for (int i = 0; i < listaEmpresas.size(); i++) {
+            if (ListProducts.varSessionProductoSelect.getIDEmpresa() == listaEmpresas.get(i).getIDEmpresa()) {
+                nombreEmpresa = listaEmpresas.get(i).getNombre();
+                break;
+            }else{
+                nombreEmpresa = "No es de alguna Empresa";
+            }
+        }
+        
+        return nombreEmpresa;
+    }
+    
+    
      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -408,6 +447,7 @@ public final class RegisterOffers extends javax.swing.JFrame {
     private javax.swing.JTextField txtCompraMax;
     private javax.swing.JTextField txtCompraMin;
     private javax.swing.JTextArea txtDescripcion;
+    public static javax.swing.JTextField txtEmpresa;
     private javax.swing.JTextField txtPorcDescuento;
     private javax.swing.JTextField txtPrecioOferta;
     public static javax.swing.JTextField txtProducto;

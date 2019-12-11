@@ -5,7 +5,9 @@
  */
 package portafolio.misofertasescritorio.products;
 
+import Models.Empresas;
 import Models.ProductoElement;
+import Services.ServiceEmpresa;
 import Services.ServiceProducto;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
@@ -23,6 +25,7 @@ public final class MaintainerProducts extends javax.swing.JFrame {
     //variableLocal
     public static int varSessionProducto;
     ServiceProducto servicio = new ServiceProducto();
+    ServiceEmpresa servicioEmpresa = new ServiceEmpresa();
     
     /**
      * Creates new form MaintainerBusiness
@@ -97,14 +100,14 @@ public final class MaintainerProducts extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nombre Producto", "Precio Normal", "Descripcion", "Marca", "Modelo", "Stock", "Imagen", "Fecha Vencimiento", "Temporada", "Actualizar", "Eliminar", "id"
+                "Nombre Producto", "Precio Normal", "Descripcion", "Marca", "Modelo", "Stock", "Imagen", "Fecha Vencimiento", "Temporada", "Empresa", "Actualizar", "Eliminar", "id"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -125,16 +128,16 @@ public final class MaintainerProducts extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableProductos);
         if (jTableProductos.getColumnModel().getColumnCount() > 0) {
-            jTableProductos.getColumnModel().getColumn(9).setResizable(false);
-            jTableProductos.getColumnModel().getColumn(9).setPreferredWidth(28);
             jTableProductos.getColumnModel().getColumn(10).setResizable(false);
             jTableProductos.getColumnModel().getColumn(10).setPreferredWidth(28);
-            jTableProductos.getColumnModel().getColumn(11).setMinWidth(0);
-            jTableProductos.getColumnModel().getColumn(11).setPreferredWidth(0);
-            jTableProductos.getColumnModel().getColumn(11).setMaxWidth(0);
+            jTableProductos.getColumnModel().getColumn(11).setResizable(false);
+            jTableProductos.getColumnModel().getColumn(11).setPreferredWidth(28);
+            jTableProductos.getColumnModel().getColumn(12).setMinWidth(0);
+            jTableProductos.getColumnModel().getColumn(12).setPreferredWidth(0);
+            jTableProductos.getColumnModel().getColumn(12).setMaxWidth(0);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 1080, 380));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 1150, 380));
 
         lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
         lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
@@ -142,9 +145,9 @@ public final class MaintainerProducts extends javax.swing.JFrame {
         lblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitulo.setText("Datos de los Productos");
         lblTitulo.setOpaque(true);
-        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 100));
+        jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 100));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1101, 579));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1180, 579));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -158,8 +161,8 @@ public final class MaintainerProducts extends javax.swing.JFrame {
         int fila = jTableProductos.rowAtPoint(evt.getPoint());
         int columna = jTableProductos.columnAtPoint(evt.getPoint());
         
-        if (columna == 9){
-            String idProducto = jTableProductos.getValueAt(fila, 11).toString();
+        if (columna == 10){
+            String idProducto = jTableProductos.getValueAt(fila, 12).toString();
             System.out.println(idProducto);
             varSessionProducto = Integer.parseInt(idProducto);
             
@@ -169,8 +172,8 @@ public final class MaintainerProducts extends javax.swing.JFrame {
             updateProducts.setVisible(true);
         }
         
-        if (columna == 10) {
-            String idProducto = jTableProductos.getValueAt(fila,11).toString();
+        if (columna == 11) {
+            String idProducto = jTableProductos.getValueAt(fila,12).toString();
             varSessionProducto = Integer.parseInt(idProducto);
             System.out.println(varSessionProducto);
             PopupDeleteProducts popupDeleteProducts = new PopupDeleteProducts();
@@ -181,8 +184,7 @@ public final class MaintainerProducts extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableProductosMouseClicked
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        DefaultTableModel modelo = (DefaultTableModel) jTableProductos.getModel();
-        modelo.setRowCount(0);
+
         CargarLista();
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -215,13 +217,16 @@ public final class MaintainerProducts extends javax.swing.JFrame {
     }
     
     public void CargarLista(){
+        //limpiar lista
+        DefaultTableModel modelo = (DefaultTableModel) jTableProductos.getModel();
+        modelo.setRowCount(0);
+        
         //recuperar lista por metodo api
         ArrayList<ProductoElement> listaProducto;
         listaProducto = servicio.ListarProductos();
         
         //modelo de la tabla
-        DefaultTableModel modelo = (DefaultTableModel) jTableProductos.getModel();
-        Object[] O = new Object[12];
+        Object[] O = new Object[13];
         
         //Renderizador de Iconos
         jTableProductos.setDefaultRenderer(Object.class, new IconCellRenderer());
@@ -246,9 +251,10 @@ public final class MaintainerProducts extends javax.swing.JFrame {
             O[6] = listaProducto.get(i).getImagen();
             O[7] = listaProducto.get(i).getFechaVencimiento();
             O[8] = listaProducto.get(i).getTemporada();
-            O[9] = actualizar;
-            O[10] = eliminar;
-            O[11] = listaProducto.get(i).getIDProducto();
+            O[9] = listaProducto.get(i).getIDEmpresa();
+            O[10] = actualizar;
+            O[11] = eliminar;
+            O[12] = listaProducto.get(i).getIDProducto();
             
             modelo.addRow(O);
             

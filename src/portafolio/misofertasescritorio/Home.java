@@ -18,6 +18,8 @@ import javax.swing.UIManager;
  * @author cvargas
  */
 public class Home extends javax.swing.JFrame {
+    
+    public static String passTemporal;
 
     /**
      * Creates new form Home
@@ -146,6 +148,7 @@ public class Home extends javax.swing.JFrame {
                 if (result.equals("400")) {
                     JOptionPane.showMessageDialog(null, "Error en el Usuario o Password");
                 }else{
+                    passTemporal = password1;
                     dispose();
                     AdminStart adminStart = new AdminStart();
                     adminStart.setVisible(true);

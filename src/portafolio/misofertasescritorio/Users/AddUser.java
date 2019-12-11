@@ -19,7 +19,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+import portafolio.misofertasescritorio.Home;
 
 /**
  *
@@ -50,7 +52,6 @@ public final class AddUser extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        txtPassword = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         btnGuardar = new javax.swing.JButton();
         lblIconoGuardar = new javax.swing.JLabel();
@@ -75,9 +76,10 @@ public final class AddUser extends javax.swing.JFrame {
         cbcEmpresas = new javax.swing.JComboBox<>();
         cbcTipoUsuario = new javax.swing.JComboBox<>();
         cbcComuna = new javax.swing.JComboBox<>();
-        txtPassword1 = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
+        txtPassword1 = new javax.swing.JPasswordField();
+        txtPassword0 = new javax.swing.JPasswordField();
 
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
@@ -99,11 +101,6 @@ public final class AddUser extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
         jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(449, 72, -1, -1));
         jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 850, 740, 20));
-
-        txtPassword.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtPassword.setForeground(new java.awt.Color(102, 102, 102));
-        txtPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Repetir Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 410, 380, -1));
 
         txtCorreo.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(102, 102, 102));
@@ -219,16 +216,16 @@ public final class AddUser extends javax.swing.JFrame {
         cbcTipoUsuario.setForeground(new java.awt.Color(120, 120, 120));
         cbcTipoUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Tipo de Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcTipoUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 630, 380, 50));
+        cbcTipoUsuario.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0){
+                SeleccionarCliente((TipoUsuario)cbcTipoUsuario.getSelectedItem());
+            }
+        });
 
         cbcComuna.setFont(new java.awt.Font("Leelawadee UI Semilight", 1, 14)); // NOI18N
         cbcComuna.setForeground(new java.awt.Color(120, 120, 120));
         cbcComuna.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 1, true), "Comuna", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
         jPanel1.add(cbcComuna, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 270, 380, 50));
-
-        txtPassword1.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
-        txtPassword1.setForeground(new java.awt.Color(102, 102, 102));
-        txtPassword1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
-        jPanel1.add(txtPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 340, 380, -1));
 
         lblTitulo.setBackground(new java.awt.Color(255, 127, 0));
         lblTitulo.setFont(new java.awt.Font("Leelawadee UI", 1, 36)); // NOI18N
@@ -238,6 +235,12 @@ public final class AddUser extends javax.swing.JFrame {
         lblTitulo.setOpaque(true);
         jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 870, 100));
         jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 710, 740, 20));
+
+        txtPassword1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Repetir Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtPassword1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 400, 380, 50));
+
+        txtPassword0.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Password", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
+        jPanel1.add(txtPassword0, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 330, 380, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -264,7 +267,7 @@ public final class AddUser extends javax.swing.JFrame {
         String rut = txtRut.getText();//
         String apellido = txtApellidos.getText();//
         String correo = txtCorreo.getText();//
-        String password = txtPassword.getText();//
+        String password = txtPassword0.getText();//
         String telefono0 = txtTelefono.getText();//
         String comuna = (String)cbcComuna.getSelectedItem();
         DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
@@ -284,6 +287,10 @@ public final class AddUser extends javax.swing.JFrame {
         
         //Validaciones
         ArrayList<String> listaErrores = new ArrayList<>();
+        
+        if (!txtPassword0.getText().equals(txtPassword1.getText())) {
+            listaErrores.add("Las password deben ser identicas");
+        }
         
         if (!Validations.validarNoVacio(nombre)) {
             listaErrores.add("El nombre  no puede estar en blanco");
@@ -327,9 +334,20 @@ public final class AddUser extends javax.swing.JFrame {
         
         //Agregar Usuario
         if (listaErrores.isEmpty()) {
-            UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono1, comuna, fechaNacimiento, suscrito, puntos1, idTipoUsuario, idEmpresa);
-            service.AgregarUsuario(usuario);
-            dispose();
+            JPasswordField pass0 = new JPasswordField();
+            JOptionPane.showConfirmDialog(null, pass0, "Ingrese su Password", JOptionPane.OK_CANCEL_OPTION);
+            String pass1 = Convertir(pass0.getPassword());
+            
+            if (pass1.equals(Home.passTemporal)) {
+                UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono1, comuna, fechaNacimiento, suscrito, puntos1, idTipoUsuario, idEmpresa);
+                service.AgregarUsuario(usuario);
+                JOptionPane.showMessageDialog(null, "Usuario Registrado");
+                dispose();
+            }else{
+                 JOptionPane.showMessageDialog(null, "Password Incorrecto");
+            }
+            
+            
         }else{
             String errores = "";
             for (int i = 0; i < listaErrores.size(); i++) {
@@ -338,11 +356,6 @@ public final class AddUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, errores);
         }
         //Fin agregar usuario
-        
-        
-        
-        
-        
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -431,6 +444,28 @@ public final class AddUser extends javax.swing.JFrame {
         }
     }
     //Fin de la carga dinamica
+    
+    private String Convertir(char[] pass){
+        String contra = "";
+        
+        for (int i = 0; i < pass.length; i++) {
+            contra += pass[i];
+        }
+        return contra;
+    }
+    
+    public void SeleccionarCliente(TipoUsuario usuario){
+        cbcEmpresas.setEnabled(true);
+        if (usuario.getIDTipoUsuario() == 2) {
+            for (int i = 0; i < cbcEmpresas.getItemCount(); i++) {
+                if (cbcEmpresas.getItemAt(i).getIDEmpresa() == 1007) {
+                    cbcEmpresas.setSelectedItem(cbcEmpresas.getItemAt(i));
+                    cbcEmpresas.setEnabled(false);
+                    break;
+                }
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOfertas;
@@ -461,8 +496,8 @@ public final class AddUser extends javax.swing.JFrame {
     private javax.swing.JTextField txtApellidos;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtNombres;
-    private javax.swing.JTextField txtPassword;
-    private javax.swing.JTextField txtPassword1;
+    private javax.swing.JPasswordField txtPassword0;
+    private javax.swing.JPasswordField txtPassword1;
     private javax.swing.JTextField txtPuntos;
     private javax.swing.JTextField txtRut;
     private javax.swing.JTextField txtTelefono;

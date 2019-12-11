@@ -40,7 +40,7 @@ public class GenericServices {
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
-            connection.setReadTimeout(5000);
+            connection.setReadTimeout(30000);
             
             int status = connection.getResponseCode();
             //System.out.println(status);

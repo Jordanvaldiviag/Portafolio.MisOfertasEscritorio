@@ -44,7 +44,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
     
     ServiceProducto servicio = new ServiceProducto();
     ServiceEmpresa servicioEmpresa = new ServiceEmpresa();
-    public static File imagenProductoActualizado;
+    public static File imagenProductoActualizado = new File("");
     public static String imagenDelProducto;
     public static String idProductoSession;
 
@@ -114,6 +114,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         lblTitulo.setOpaque(true);
         jPanel1.add(lblTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 100));
 
+        txtImagen.setEditable(false);
         txtImagen.setFont(new java.awt.Font("Leelawadee UI", 1, 18)); // NOI18N
         txtImagen.setForeground(new java.awt.Color(102, 102, 102));
         txtImagen.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 127, 0), 2, true), "Imagen", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Leelawadee UI Semilight", 1, 14), new java.awt.Color(255, 127, 0))); // NOI18N
@@ -345,7 +346,12 @@ public final class UpdateProducts extends javax.swing.JFrame {
             servicio.ActualizarProducto(producto);
             JOptionPane.showMessageDialog(null, "Producto actualizado con exito");
             try {
-                servicio.SubirImagenstatic(idProductoSession, imagenProductoActualizado);
+                if (!idProductoSession.isEmpty() && !imagenProductoActualizado.getName().equals("")) {
+                    servicio.SubirImagenstatic(idProductoSession, imagenProductoActualizado);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sin imagen al actualizar");
+                }
+                
             } catch (IOException ex) {
                 Logger.getLogger(UpdateProducts.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Error al subir la imagen");
@@ -371,7 +377,7 @@ public final class UpdateProducts extends javax.swing.JFrame {
         {
             File inputFile = fileChooser.getSelectedFile();
             String baseUrl = System.getProperty("user.dir")+"/src/ImagenesSubidas/";
-            String url = baseUrl+fileChooser.getSelectedFile().getName()+"copia";
+            String url = baseUrl+fileChooser.getSelectedFile().getName();
             File outputFile = new File(url);
             outputFile.deleteOnExit();
             try (InputStream is = new FileInputStream(inputFile)) {

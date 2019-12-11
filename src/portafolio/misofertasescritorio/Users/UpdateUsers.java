@@ -13,6 +13,7 @@ import Models.Usuario;
 import Services.ServiceAdditional;
 import Services.ServiceEmpresa;
 import Services.ServiceUsuario;
+import Services.Validations;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -20,7 +21,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.UIManager;
+import portafolio.misofertasescritorio.Home;
 
 /**
  *
@@ -264,13 +268,13 @@ public final class UpdateUsers extends javax.swing.JFrame {
         String nombre = txtNombres.getText();
         String rut = txtRut.getText();
         String apellido = txtApellidos.getText();
-        String correo = txtComuna.getText();
+        String correo = txtCorreo.getText();
         String password = txtRut.getText();
         String comuna = (String)cbcComuna.getSelectedItem();
         DateFormat f = new SimpleDateFormat("yyyy/MM/dd");
         String fechaNacimiento = f.format(jDateNacimiento.getDate());
-        Long telefono = Long.parseLong(txtTelefono.getText());
-        Long puntos = Long.parseLong(txtPuntosObtenidos.getText());
+        String telefono0 = txtTelefono.getText();
+        String puntos0 = txtPuntosObtenidos.getText();
         Boolean suscrito = rbSi.isSelected();
         
         Empresas empresa = (Empresas)cbcEmpresas.getSelectedItem();
@@ -278,11 +282,79 @@ public final class UpdateUsers extends javax.swing.JFrame {
         TipoUsuario tipoUsuario = (TipoUsuario)cbcTipoUsuario.getSelectedItem();
         Long idTipoUsuario = tipoUsuario.getIDTipoUsuario();
         
-        UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono, comuna, fechaNacimiento, suscrito, puntos, idTipoUsuario, idEmpresa);
+        //Formateo de entradas
+        Long telefono1 = null;
+        Long puntos1 = null;
         
-        service.ActualizarUsuario(usuario);
+        //Validaciones
+        ArrayList<String> listaErrores = new ArrayList<>();
         
-        dispose();
+        if (!Validations.validarNoVacio(nombre)) {
+            listaErrores.add("El nombre  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(rut)) {
+            listaErrores.add("El RUT  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(apellido)) {
+            listaErrores.add("El Apellido  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(correo)) {
+            listaErrores.add("El Correo  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(password)) {
+            listaErrores.add("El Password  no puede estar en blanco");
+        }
+        
+        if (!Validations.validarNoVacio(telefono0)) {
+            listaErrores.add("El Telefono no puede estar en blanco");
+        }
+        telefono1 = Validations.validarNumeroLong(telefono0);
+        if (telefono1 == Long.parseLong("0")) {
+            listaErrores.add("El Telefono no puede contener letras");
+        }
+        
+        if (!Validations.validarNoVacio(puntos0)) {
+            listaErrores.add("Los puntos no pueden estar en blanco");
+        }
+        puntos1 = Validations.validarNumeroLong(puntos0);
+        if (puntos1 == Long.parseLong("0")) {
+            listaErrores.add("Los puntos no pueden contener letras");
+        }
+        
+        if (listaErrores.isEmpty()) {
+            
+            
+            
+            JPasswordField pass0 = new JPasswordField();
+            JOptionPane.showConfirmDialog(null, pass0, "Ingrese su Password", JOptionPane.OK_CANCEL_OPTION);
+            String pass1 = Convertir(pass0.getPassword());
+            
+            if (pass1.equals(Home.passTemporal)) {
+                UsuarioHelper usuario = new UsuarioHelper(rut, nombre, apellido, correo, password, telefono1, comuna, fechaNacimiento, suscrito, puntos1, idTipoUsuario, idEmpresa);
+        
+                service.ActualizarUsuario(usuario);
+                JOptionPane.showMessageDialog(null, "!Actualizado con Exito!");
+                dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Password Incorrecto, intente nuevamente");
+            }
+            
+            
+        }else{
+            String errores = "";
+            for (int i = 0; i < listaErrores.size(); i++) {
+                errores += listaErrores.get(i)+"\n";
+            }
+            JOptionPane.showMessageDialog(null, errores);
+        }
+        
+        
+        
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
@@ -310,10 +382,8 @@ public final class UpdateUsers extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UpdateUsers().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new UpdateUsers().setVisible(true);
         });
     }
     
@@ -365,7 +435,6 @@ public final class UpdateUsers extends javax.swing.JFrame {
                 break;
             }
         }
-        
     }
     
     private void SeleccionarEmpresa(Empresas empresa){
@@ -410,9 +479,9 @@ public final class UpdateUsers extends javax.swing.JFrame {
         ArrayList <Regiones> regiones;
         regiones = serviceAdditional.ListarRegiones();
         
-        for (Regiones regione : regiones) {
+        regiones.forEach((regione) -> {
             cbcRegion.addItem(regione.getRegion());
-        }
+        });
     }
     
     public void RellenarComuna(String selectItemCbc){
@@ -428,6 +497,15 @@ public final class UpdateUsers extends javax.swing.JFrame {
         }
     }
     //Fin de la carga dinamica
+    
+    private String Convertir(char[] pass){
+        String contra = "";
+        
+        for (int i = 0; i < pass.length; i++) {
+            contra += pass[i];
+        }
+        return contra;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgOfertas;

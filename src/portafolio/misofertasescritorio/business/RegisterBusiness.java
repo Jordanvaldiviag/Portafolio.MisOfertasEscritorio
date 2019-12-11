@@ -233,6 +233,7 @@ public final class RegisterBusiness extends javax.swing.JFrame {
         if (listaErrores.isEmpty()) {
             EmpresaHelper empresa = new EmpresaHelper(nombre, direccion, telefono, comuna, region, rut, actividad);
             servicio.AgregarEmpresa(empresa);
+            JOptionPane.showMessageDialog(null, "Empresa Creada");
             dispose();
         }else{
             String errores = "";
